@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
@@ -9,14 +8,14 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Screens.MatriculaScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Screens.AcademicHistoryScreen">
    <children>
       <AnchorPane prefHeight="520.0" prefWidth="200.0">
          <children>
             <ImageView fitHeight="35.0" fitWidth="123.0" layoutX="39.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
-            <Button layoutX="44.0" layoutY="103.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="MATRÍCULA" />
+            <Button layoutX="44.0" layoutY="103.0" mnemonicParsing="false" onAction="#loadMatriculaScreen" prefHeight="25.0" prefWidth="113.0" text="MATRÍCULA" />
             <Button layoutX="44.0" layoutY="153.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="INCLUSIONES" />
-            <Button layoutX="44.0" layoutY="203.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="HISTORIAL" />
+            <Button layoutX="44.0" layoutY="203.0" mnemonicParsing="false" onAction="#loadAcademicHistoryScreen" prefHeight="25.0" prefWidth="113.0" text="HISTORIAL" />
             <Button layoutX="44.0" layoutY="253.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="PAGOS" />
             <Button layoutX="44.0" layoutY="462.0" mnemonicParsing="false" onAction="#loadLoginScreen" prefHeight="25.0" prefWidth="113.0" text="SALIR">
                <font>
@@ -26,12 +25,11 @@
          </children>
       </AnchorPane>
       <Rectangle arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="520.0" layoutX="198.0" stroke="TRANSPARENT" strokeType="INSIDE" width="722.0" />
-      <Label layoutX="232.0" layoutY="35.0" text="MATRÍCULA">
+      <Label layoutX="232.0" layoutY="35.0" text="HISTORIAL ACADÉMICO">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <ComboBox fx:id="screenEnrollmentOptions" layoutX="714.0" layoutY="46.0" prefHeight="25.0" prefWidth="172.0" promptText="opciones" />
       <ScrollPane layoutX="232.0" layoutY="103.0" prefHeight="382.0" prefWidth="654.0">
         <content>
           <AnchorPane fx:id="anchorPane" minHeight="0.0" minWidth="0.0" prefHeight="385.0" prefWidth="639.0" />

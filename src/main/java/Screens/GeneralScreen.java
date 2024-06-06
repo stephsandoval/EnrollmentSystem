@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +16,8 @@ public class GeneralScreen {
 
     private final String loginPath = "src/main/java/FXML/LoginScreen.fxml";
     private final String matriculaPath = "src/main/java/FXML/MatriculaScreen.fxml";
+    private final String academicHistoryPath = "src/main/java/FXML/AcademicHistoryScreen.fxml";
+    
     protected int studentID = 2023395946;
 
     private String path;
@@ -33,13 +34,18 @@ public class GeneralScreen {
         stage.show();
     }
 
+    public void loadLoginScreen (ActionEvent event) throws IOException {
+        path = loginPath;
+        loadScreen(event);
+    }
+
     public void loadMatriculaScreen (ActionEvent event) throws IOException {
         path = matriculaPath;
         loadScreen(event);
     }
 
-    public void loadLoginScreen (ActionEvent event) throws IOException {
-        path = loginPath;
+    public void loadAcademicHistoryScreen (ActionEvent event) throws IOException {
+        path = academicHistoryPath;
         loadScreen(event);
     }
 }
