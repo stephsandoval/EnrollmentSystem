@@ -3,25 +3,25 @@ package Screens;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import Controllers.MatriculaController;
+import Controllers.InclusionController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public class MatriculaScreen extends GeneralScreen implements Initializable {
-
+public class InclusionScreen extends GeneralScreen implements Initializable {
+    
     @FXML
     private AnchorPane anchorPane;
 
-    private MatriculaController controller;
+    private InclusionController controller;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        controller = MatriculaController.getInstance(studentID);
+        controller = InclusionController.getInstance(studentID);
         setCourseList();
     }
-    
+
     private void setCourseList() {
         VBox courseList = controller.getCourseList();
         anchorPane.getChildren().add(courseList);

@@ -14,7 +14,7 @@
          <children>
             <ImageView fitHeight="35.0" fitWidth="123.0" layoutX="39.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
             <Button layoutX="44.0" layoutY="103.0" mnemonicParsing="false" onAction="#loadMatriculaScreen" prefHeight="25.0" prefWidth="113.0" text="MATRÍCULA" />
-            <Button layoutX="44.0" layoutY="153.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="INCLUSIONES" />
+            <Button layoutX="44.0" layoutY="153.0" mnemonicParsing="false" onAction="#loadInclusionScreen" prefHeight="25.0" prefWidth="113.0" text="INCLUSIONES" />
             <Button layoutX="44.0" layoutY="203.0" mnemonicParsing="false" onAction="#loadAcademicHistoryScreen" prefHeight="25.0" prefWidth="113.0" text="HISTORIAL" />
             <Button layoutX="44.0" layoutY="253.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="PAGOS" />
             <Button layoutX="44.0" layoutY="462.0" mnemonicParsing="false" onAction="#loadLoginScreen" prefHeight="25.0" prefWidth="113.0" text="SALIR">

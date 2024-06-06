@@ -7,16 +7,23 @@ import javafx.collections.ObservableList;
 
 public class AcademicHistoryController {
 
+    private static AcademicHistoryController instance;
     private ObservableList<Record> records;
     private RecordList recordList;
     private int studentID;
 
-    public AcademicHistoryController (int studentID) {
+    private AcademicHistoryController (int studentID) {
         this.studentID = studentID;
         records = getRecords();
         recordList = new RecordList(records);
     }
 
+    public static synchronized AcademicHistoryController getInstance (int studentID) {
+        if (instance == null) {
+            instance = new AcademicHistoryController(studentID);
+        }
+        return instance;
+    }
     
     private ObservableList<Record> getRecords() {
         ObservableList<Record> records = FXCollections.observableArrayList();

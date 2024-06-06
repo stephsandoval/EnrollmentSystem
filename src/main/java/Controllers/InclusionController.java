@@ -7,22 +7,22 @@ import Enrollment.Course;
 import Enrollment.CourseList;
 import Enrollment.Group;
 
-public class MatriculaController {
- 
-    private static MatriculaController instance;
+public class InclusionController {
+    
+    private static InclusionController instance;
     private ArrayList<Course> courses;
     private CourseList courseList;
     private int studentID;
 
-    private MatriculaController(int studentID) {
+    private InclusionController (int studentID) {
         this.studentID = studentID;
         courses = getCourses();
         courseList = new CourseList(courses);
     }
 
-    public static synchronized MatriculaController getInstance(int studentID) {
+    public static synchronized InclusionController getInstance(int studentID) {
         if (instance == null) {
-            instance = new MatriculaController(studentID);
+            instance = new InclusionController(studentID);
         }
         return instance;
     }

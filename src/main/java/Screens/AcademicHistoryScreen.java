@@ -19,7 +19,7 @@ public class AcademicHistoryScreen extends GeneralScreen implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        controller = new AcademicHistoryController(studentID);
+        controller = AcademicHistoryController.getInstance(studentID);
         setRecordList();
     }
 

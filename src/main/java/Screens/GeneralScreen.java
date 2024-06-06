@@ -17,6 +17,7 @@ public class GeneralScreen {
     private final String loginPath = "src/main/java/FXML/LoginScreen.fxml";
     private final String matriculaPath = "src/main/java/FXML/MatriculaScreen.fxml";
     private final String academicHistoryPath = "src/main/java/FXML/AcademicHistoryScreen.fxml";
+    private final String inclusionPath = "src/main/java/FXML/InclusionScreen.fxml";
     
     protected int studentID = 2023395946;
 
@@ -46,6 +47,11 @@ public class GeneralScreen {
 
     public void loadAcademicHistoryScreen (ActionEvent event) throws IOException {
         path = academicHistoryPath;
+        loadScreen(event);
+    }
+
+    public void loadInclusionScreen (ActionEvent event) throws IOException {
+        path = inclusionPath;
         loadScreen(event);
     }
 }

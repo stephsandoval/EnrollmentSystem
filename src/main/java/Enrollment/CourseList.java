@@ -40,7 +40,7 @@ public class CourseList extends VBox {
         header.setSpacing(40);
         header.setPadding(new Insets(10));
         
-        Label codeHeader = new Label("CODIGO");
+        Label codeHeader = new Label("CÓDIGO");
         Label courseHeader = new Label("CURSO");
         
         header.getChildren().addAll(codeHeader, courseHeader);
@@ -64,9 +64,9 @@ public class CourseList extends VBox {
         ColumnConstraints group = new ColumnConstraints();
         group.setPercentWidth(10);
         ColumnConstraints schedule = new ColumnConstraints();
-        schedule.setPercentWidth(15);
+        schedule.setPercentWidth(20);
         ColumnConstraints teacher = new ColumnConstraints();
-        teacher.setPercentWidth(35);
+        teacher.setPercentWidth(30);
         ColumnConstraints capacity = new ColumnConstraints();
         capacity.setPercentWidth(10);
         ColumnConstraints modality = new ColumnConstraints();
