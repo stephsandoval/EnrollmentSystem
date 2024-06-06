@@ -1,0 +1,237 @@
+<Data>
+    <Students>
+        <Student ID = "2023395946" Name = "Sandoval Camacho Stephanie Paola" Career = "412" Campus = "Cartago" />
+        <Student ID = "2024010101" Name = "Sandoval Camacho Gabriela Vanessa" Career = "1053" Campus = "Cartago" />
+    </Students>
+    <Careers>
+        <Career Name = "Ingeniería en Computación" />
+        <Career Name = "Ingeniería en Biotecnología" />
+    </Careers>
+    <CareerPlans>
+        <CareerPlan ID = "412" Name = "Ingeniería en Computación" />
+        <CareerPlan ID = "1053" Name = "Ingeniería en Biotecnología" />
+    </CareerPlans>
+    <Campuses>
+        <Campus Name = "Campus Tecnológico Central Cartago" Shortname = "Cartago" />
+        <Campus Name = "Campus Tecnológica Local San José" Shortname = "San Jose" />
+        <Campus Name = "Centro Académico de Alajuela" Shortname = "Alajuela" />
+        <Campus Name = "Campus Tecnológico Local San Carlos" Shortname = "San Carlos" />
+        <Campus Name = "Centro Académico de Limón" Shortname = "Limón" />
+    </Campuses>
+    <ModalityTypes>
+        <ModalityType Name = "Regular" />
+        <ModalityType Name = "Semipresencial" />
+        <ModalityType Name = "Virtual" />
+    </ModalityTypes>
+    <Teachers>
+        <Teacher ID = "1" Name = "Ortiz Alvarez Jorge Isaac" />
+        <Teacher ID = "2" Name = "Rodríguez Morales Oscar" />
+        <Teacher ID = "3" Name = "Rojas Molina Betsy" />
+        <Teacher ID = "4" Name = "Obando Rogríguez Kenneth" />
+        <Teacher ID = "5" Name = "Gatjens Soto Kirstein" />
+        <Teacher ID = "6" Name = "Vargas Calvo Jorge" />
+        <Teacher ID = "7" Name = "Arroyo Herrera Mauricio" />
+        <Teacher ID = "8" Name = "Solano Soto Jaime" />
+        <Teacher ID = "9" Name = "Chacón Rivas Mario" />
+        <Teacher ID = "10" Name = "Núñez Núñez Rogrigo" />
+        <Teacher ID = "11" Name = "Rogríguez Castro Bryan" />
+        <Teacher ID = "12" Name = "Prendas Rojas Juan Pablo" />
+    </Teachers>
+    <Classrooms>
+        <Classroom ID = "0" />
+        <Classroom ID = "F4-09" />
+        <Classroom ID = "F4-10" />
+        <Classroom ID = "F5-07" />
+        <Classroom ID = "B3-01" />
+        <Classroom ID = "B3-08" />
+        <Classroom ID = "B3-06" />
+        <Classroom ID = "B6-03" />
+        <Classroom ID = "B6-02" />
+        <Classroom ID = "G18-03" />
+        <Classroom ID = "D3-13" />
+    </Classrooms>
+    <Courses>
+        <Course ID = "CI0200" Name = "Examen Diagnósitco" Credits = "0" />
+        <Course ID = "CI0202" Name = "Inglés Básico" Credits = "2" />
+        <Course ID = "MA0101" Name = "Matemática General" Credits = "2" />
+        <Course ID = "CI1106" Name = "Comunicación Escrita" Credits = "2" />
+        <Course ID = "IC1400" Name = "Fundamentos de Organización de Computadoras" Credits = "3" />
+        <Course ID = "IC1802" Name = "Introducción a la Programación" Credits = "3" />
+        <Course ID = "IC1803" Name = "Taller de Programación" Credits = "3" />
+        <Course ID = "MA1403" Name = "Matemática Discreta" Credits = "4" />
+        <Course ID = "CI1107" Name = "Comunicación Oral" Credits = "1" />
+        <Course ID = "CI1230" Name = "Inglés I" Credits = "2" />
+        <Course ID = "FH1000" Name = "Centros de Formación Humanística" Credits = "0" />
+        <Course ID = "IC2001" Name = "Estructuras de Datos" Credits = "4" />
+        <Course ID = "IC2101" Name = "Programación Orientada a Objetos" Credits = "3" />
+        <Course ID = "IC3101" Name = "Arquitectura de Computadores" Credits = "4" />
+        <Course ID = "MA1102" Name = "Cálculo Diferencial e Integral" Credits = "4" />
+        <Course ID = "CI1231" Name = "Inglés II" Credits = "2" />
+        <Course ID = "IC3002" Name = "Análsis de Algoritmos" Credits = "4" />
+        <Course ID = "IC4301" Name = "Bases de Datos I" Credits = "4" />
+        <Course ID = "IC5821" Name = "Requerimientos de Software" Credits = "4" />
+        <Course ID = "MA1103" Name = "Cálculo y Algebra Lineal" Credits = "4" />
+        <Course ID = "CS2101" Name = "Ambiente Humano" Credits = "2" />
+        <Course ID = "IC4302" Name = "Bases de Datos II" Credits = "3" />
+        <Course ID = "IC4700" Name = "Lenguajes de Programación" Credits = "4" />
+        <Course ID = "IC6821" Name = "Diseño de Software" Credits = "4" />
+        <Course ID = "MA2404" Name = "Probabilidades" Credits = "4" />
+        <Course ID = "CS3401" Name = "Seminario de Estudios Filosóficos Históricos" Credits = "2" />
+        <Course ID = "IC4810" Name = "Administración de Proyectos" Credits = "4" />
+        <Course ID = "IC5701" Name = "Compiladores e Interpretes" Credits = "4" />
+        <Course ID = "IC6831" Name = "Aseguramiento de la Calidad del Software" Credits = "3" />
+        <Course ID = "MA3405" Name = "Estadística" Credits = "4" />
+        <Course ID = "BI1101" Name = "Biología General" Credits = "3" />
+        <Course ID = "BI1102" Name = "Laboratorio de Biología General" Credits = "1" />
+        <Course ID = "CS1502" Name = "Introducción a la Técnica Ciencia y Tecnología" Credits = "1" />
+        <Course ID = "FI1105" Name = "Física para Biotecnología" Credits = "3" />
+        <Course ID = "IB1601" Name = "Introducción a la Biotecnología" Credits = "2" />
+        <Course ID = "QU1102" Name = "Laboratorio de Química Básica I" Credits = "1" />
+        <Course ID = "QU1106" Name = "Química Básica I" Credits = "3" />
+        <Course ID = "CI1202" Name = "Inglés para Biotecnología" Credits = "2" />
+        <Course ID = "IB2113" Name = "Análisis Estadístico para Biotecnología" Credits = "3" />
+        <Course ID = "IB2203" Name = "Anatomía Vegetal" Credits = "3" />
+        <Course ID = "IB2204" Name = "Laboratorio de Anatomía Vegetal" Credits = "1" />
+        <Course ID = "QU1107" Name = "Química Básica II" Credits = "3" />
+        <Course ID = "QU1104" Name = "Laboratorio de Química Básica II" Credits = "1" />
+    </Courses>
+    <Requirements>
+        <Requirement Course = "CI1107" Requirement = "CI1106" />
+        <Requirement Course = "CI1230" Requirement = "CI0200" />
+        <Requirement Course = "CI1230" Requirement = "CI0202" />
+        <Requirement Course = "IC2101" Requirement = "IC1802" />
+        <Requirement Course = "IC2101" Requirement = "IC1803" />
+        <Requirement Course = "IC3101" Requirement = "IC1400" />
+        <Requirement Course = "IC3101" Requirement = "IC1803" />
+        <Requirement Course = "MA1102" Requirement = "MA0101" />
+        <Requirement Course = "MA1102" Requirement = "MA1403" />
+        <Requirement Course = "CI1231" Requirement = "CI1230" />
+        <Requirement Course = "IC3002" Requirement = "IC2001" />
+        <Requirement Course = "IC3002" Requirement = "MA1102" />
+        <Requirement Course = "IC4301" Requirement = "IC2001" />
+        <Requirement Course = "MA1103" Requirement = "MA1102" />
+        <Requirement Course = "CS2101" Requirement = "CI1107" />
+        <Requirement Course = "IC4302" Requirement = "IC4301" />
+        <Requirement Course = "IC4700" Requirement = "IC3002" />
+        <Requirement Course = "IC4700" Requirement = "IC3101" />
+        <Requirement Course = "IC6821" Requirement = "IC5821" />
+        <Requirement Course = "MA2404" Requirement = "MA1103" />
+        <Requirement Course = "CS3401" Requirement = "CS2101" />
+        <Requirement Course = "IC4810" Requirement = "IC5821" />
+        <Requirement Course = "IC5701" Requirement = "IC4700" />
+        <Requirement Course = "IC6831" Requirement = "IC6821" />
+        <Requirement Course = "MA3405" Requirement = "MA2404" />
+        <Requirement Course = "CI1202" Requirement = "CI0200" />
+        <Requirement Course = "CI1202" Requirement = "CI0202" />
+        <Requirement Course = "IB2113" Requirement = "MA0101" />
+        <Requirement Course = "IB2203" Requirement = "BI1101" />
+        <Requirement Course = "IB2203" Requirement = "BI1102" />
+        <Requirement Course = "IB2204" Requirement = "BI1101" />
+        <Requirement Course = "IB2204" Requirement = "BI1102" />
+        <Requirement Course = "QU1104" Requirement = "QU1102" />
+        <Requirement Course = "QU1104" Requirement = "QU1106" />
+        <Requirement Course = "QU1107" Requirement = "QU1102" />
+        <Requirement Course = "QU1107" Requirement = "QU1106" />
+    </Requirements>
+    <Corequirements>
+        <Corequirement Course = "IC2001" Corequirement = "IC2101" />
+        <Corequirement Course = "IC4301" Corequirement = "MA1103" />
+        <Corequirement Course = "IC5821" Corequirement = "IC4301" />
+        <Corequirement Course = "IC6831" Corequirement = "IC4810" />
+        <Corequirement Course = "BI1101" Corequirement = "BI1102" />
+        <Corequirement Course = "BI1102" Corequirement = "BI1101" />
+        <Corequirement Course = "IB1601" Corequirement = "BI1101" />
+        <Corequirement Course = "IB1601" Corequirement = "BI1102" />
+        <Corequirement Course = "QU1102" Corequirement = "QU1106" />
+        <Corequirement Course = "QU1106" Corequirement = "QU1102" />
+        <Corequirement Course = "IB2203" Corequirement = "IB2204" />
+        <Corequirement Course = "IB2204" Corequirement = "IB2203" />
+        <Corequirement Course = "QU1107" Corequirement = "QU1104" />
+        <Corequirement Course = "QU1104" Corequirement = "QU1107" />
+    </Corequirements>
+    <CoursesPerCareerPlan>
+        <Course ID="CI0200" Plan="412" />
+        <Course ID="CI0202" Plan="412" />
+        <Course ID="MA0101" Plan="412" />
+        <Course ID="CI1106" Plan="412" />
+        <Course ID="IC1400" Plan="412" />
+        <Course ID="IC1802" Plan="412" />
+        <Course ID="IC1803" Plan="412" />
+        <Course ID="MA1403" Plan="412" />
+        <Course ID="CI1107" Plan="412" />
+        <Course ID="CI1230" Plan="412" />
+        <Course ID="FH1000" Plan="412" />
+        <Course ID="IC2001" Plan="412" />
+        <Course ID="IC2101" Plan="412" />
+        <Course ID="IC3101" Plan="412" />
+        <Course ID="MA1102" Plan="412" />
+        <Course ID="CI1231" Plan="412" />
+        <Course ID="IC3002" Plan="412" />
+        <Course ID="IC4301" Plan="412" />
+        <Course ID="IC5821" Plan="412" />
+        <Course ID="MA1103" Plan="412" />
+        <Course ID="CS2101" Plan="412" />
+        <Course ID="IC4302" Plan="412" />
+        <Course ID="IC4700" Plan="412" />
+        <Course ID="IC6821" Plan="412" />
+        <Course ID="MA2404" Plan="412" />
+        <Course ID="CS3401" Plan="412" />
+        <Course ID="IC4810" Plan="412" />
+        <Course ID="IC5701" Plan="412" />
+        <Course ID="IC6831" Plan="412" />
+        <Course ID="MA3405" Plan="412" />
+        <Course ID="BI1101" Plan="1053" />
+        <Course ID="BI1102" Plan="1053" />
+        <Course ID="CS1502" Plan="1053" />
+        <Course ID="FI1105" Plan="1053" />
+        <Course ID="IB1601" Plan="1053" />
+        <Course ID="QU1102" Plan="1053" />
+        <Course ID="QU1106" Plan="1053" />
+        <Course ID="CI1202" Plan="1053" />
+        <Course ID="IB2113" Plan="1053" />
+        <Course ID="IB2203" Plan="1053" />
+        <Course ID="IB2204" Plan="1053" />
+        <Course ID="QU1107" Plan="1053" />
+        <Course ID="QU1104" Plan="1053" />
+        <Course ID="CI0200" Plan="1053" />
+        <Course ID="CI0202" Plan="1053" />
+        <Course ID="MA0101" Plan="1053" />
+        <Course ID="CI1106" Plan="1053" />
+        <Course ID="CI1107" Plan="1053" />
+        <Course ID="FH1000" Plan="1053" />
+      </CoursesPerCareerPlan>
+      <EnrollmentCourses>
+        <EnrollmentCourse Course = "CS2101" Teacher = "1" Clasroom = "F4-09" Modality = "R" Campus = "Cartago" Group = "1" ClassDays = "V" Capacity = "32" Start = "09:30:00" End = "12:20:00" />
+        <EnrollmentCourse Course = "CS2101" Teacher = "2" Clasroom = "0" Modality = "V" Campus = "Cartago" Group = "2" ClassDays = "M" Capacity = "32" Start = "15:00:00" End = "17:50:00" />
+        <EnrollmentCourse Course = "CS2101" Teacher = "3" Clasroom = "0" Modality = "V" Campus = "Cartago" Group = "3" ClassDays = "K" Capacity = "32" Start = "18:00:00" End = "20:50:00" />
+        <EnrollmentCourse Course = "IC4302" Teacher = "4" Clasroom = "B3-01" Modality = "S" Campus = "Cartago" Group = "1" ClassDays = "KJ" Capacity = "32" Start = "15:00:00" End = "16:50:00" />
+        <EnrollmentCourse Course = "IC4700" Teacher = "5" Clasroom = "B3-01" Modality = "S" Campus = "Cartago" Group = "1" ClassDays = "M" Capacity = "23" Start = "07:30:00" End = "09:20:00" />
+        <EnrollmentCourse Course = "IC4700" Teacher = "6" Clasroom = "B3-08" Modality = "S" Campus = "Cartago" Group = "2" ClassDays = "MV" Capacity = "23" Start = "13:00:00" End = "14:50:00" />
+        <EnrollmentCourse Course = "IC4810" Teacher = "7" Clasroom = "B3-08" Modality = "S" Campus = "Cartago" Group = "1" ClassDays = "KJ" Capacity = "28" Start = "07:30:00" End = "09:20:00" />
+        <EnrollmentCourse Course = "IC4810" Teacher = "8" Clasroom = "B3-06" Modality = "R" Campus = "Cartago" Group = "2" ClassDays = "KJ" Capacity = "28" Start = "15:00:00" End = "16:50:00" />
+        <EnrollmentCourse Course = "IC6821" Teacher = "9" Clasroom = "B6-03" Modality = "S" Campus = "Cartago" Group = "1" ClassDays = "KJ" Capacity = "26" Start = "09:30:00" End = "11:20:00" />
+        <EnrollmentCourse Course = "IC6821" Teacher = "10" Clasroom = "B6-02" Modality = "S" Campus = "Cartago" Group = "2" ClassDays = "MV" Capacity = "26" Start = "07:30:00" End = "09:20:00" />
+        <EnrollmentCourse Course = "MA3405" Teacher = "11" Clasroom = "G18-03" Modality = "S" Campus = "Cartago" Group = "1" ClassDays = "KJ" Capacity = "40" Start = "17:00:00" End = "18:50:00" />
+        <EnrollmentCourse Course = "MA3405" Teacher = "12" Clasroom = "D3-13" Modality = "R" Campus = "Cartago" Group = "2" ClassDays = "MV" Capacity = "40" Start = "07:30:00" End = "09:20:00" />
+      </EnrollmentCourses>
+      <AcademicHistory>
+        <History Student = "2023395946" Course = "CI0200" Group = "114" Period = "1S-2023" Grade = "100" Condition = "Suficiencia" />
+        <History Student = "2023395946" Course = "IC1400" Group = "4" Period = "1S-2023" Grade = "100" Condition = "Cursado" />
+        <History Student = "2023395946" Course = "IC1803" Group = "5" Period = "1S-2023" Grade = "100" Condition = "Cursado" />
+        <History Student = "2023395946" Course = "MA1403" Group = "1" Period = "1S-2023" Grade = "100" Condition = "Cursado" />
+        <History Student = "2023395946" Course = "MA0101" Group = "100" Period = "1S-2023" Grade = "101" Condition = "Reconocimiento" />
+        <History Student = "2023395946" Course = "MA1102" Group = "100" Period = "1S-2023" Grade = "101" Condition = "Reconocimiento" />
+        <History Student = "2023395946" Course = "IC1802" Group = "5" Period = "1S-2023" Grade = "95" Condition = "Cursado" />
+        <History Student = "2023395946" Course = "CI1230" Group = "110" Period = "2S-2023" Grade = "100" Condition = "Suficiencia" />
+        <History Student = "2023395946" Course = "IC3101" Group = "3" Period = "2S-2023" Grade = "100" Condition = "Cursado" />
+        <History Student = "2023395946" Course = "IC2001" Group = "3" Period = "2S-2023" Grade = "80" Condition = "Cursado" />
+        <History Student = "2023395946" Course = "CI1106" Group = "2" Period = "2S-2023" Grade = "85" Condition = "Cursado" />
+        <History Student = "2023395946" Course = "MA1103" Group = "10" Period = "2S-2023" Grade = "85" Condition = "Cursado" />
+        <History Student = "2023395946" Course = "IC2101" Group = "4" Period = "2S-2023" Grade = "90" Condition = "Cursado" />
+        <History Student = "2023395946" Course = "CI1107" Group = "1" Period = "1S-2024" Grade = "100" Condition = "Cursado" />
+        <History Student = "2023395946" Course = "IC3002" Group = "2" Period = "1S-2024" Grade = "80" Condition = "Cursado" />
+        <History Student = "2023395946" Course = "IC4301" Group = "1" Period = "1S-2024" Grade = "85" Condition = "Cursado" />
+        <History Student = "2023395946" Course = "IC5821" Group = "1" Period = "1S-2024" Grade = "90" Condition = "Cursado" />
+        <History Student = "2023395946" Course = "MA2404" Group = "2" Period = "1S-2024" Grade = "85" Condition = "Cursado" />
+      </AcademicHistory>
+    </Data>
