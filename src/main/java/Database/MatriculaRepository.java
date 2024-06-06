@@ -11,19 +11,25 @@ import Enrollment.Group;
 public class MatriculaRepository extends Repository {
     
     private static MatriculaRepository instance;
+    private Result enrollmentCourses;
     
-    private MatriculaRepository() {
+    private MatriculaRepository (int studentID) {
         super();
+        enrollmentCourses = loadEnrollmentCourses(studentID);
     }
 
-    public static synchronized MatriculaRepository getInstance() {
+    public static synchronized MatriculaRepository getInstance(int studentID) {
         if (instance == null) {
-            instance = new MatriculaRepository();
+            instance = new MatriculaRepository(studentID);
         }
         return instance;
     }
 
-    public Result getEnrollmentCourses (int studentID) {
+    public Result getEnrollmentCourses() {
+        return this.enrollmentCourses;
+    }
+
+    private Result loadEnrollmentCourses (int studentID) {
         ResultSet resultSet;
         Result result = new Result(); 
 

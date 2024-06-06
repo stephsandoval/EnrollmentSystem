@@ -6,6 +6,7 @@ import Database.MatriculaRepository;
 import Database.Result;
 import Enrollment.Course;
 import Enrollment.CourseList;
+import Enrollment.CourseSelectionList;
 
 public class MatriculaController {
  
@@ -15,19 +16,20 @@ public class MatriculaController {
     private CourseList courseList;
     private int maxGroups = 0;
 
-    private MatriculaController() {
-        repository = MatriculaRepository.getInstance();
+    private MatriculaController(int studentID) {
+        repository = MatriculaRepository.getInstance(studentID);
+        loadCourses(studentID);
     }
 
-    public static synchronized MatriculaController getInstance() {
+    public static synchronized MatriculaController getInstance(int studentID) {
         if (instance == null) {
-            instance = new MatriculaController();
+            instance = new MatriculaController(studentID);
         }
         return instance;
     }
 
-    public void loadCourses (int studentID) {
-        Result result = repository.getEnrollmentCourses(studentID);
+    private void loadCourses (int studentID) {
+        Result result = repository.getEnrollmentCourses();
         ArrayList<Course> courses = new ArrayList<>();
         int courseIndex = 0;
         if (result.getResultCodes() == 0){
@@ -48,5 +50,9 @@ public class MatriculaController {
     public double getIdealHeight() {
         int amountElements = maxGroups + courseList.getSize();
         return amountElements * 30;
+    }
+
+    public CourseSelectionList getCourseSelection() {
+        return this.courseList.getCourseSelection();
     }
 }

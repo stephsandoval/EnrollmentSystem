@@ -15,12 +15,14 @@ import javafx.scene.layout.VBox;
 
 public class CourseList extends VBox {
     
+    private CourseSelectionList coursesSelected;
     private ArrayList<Course> courses;
     private Accordion courseList;
     private HBox header;
     
     public CourseList(ArrayList<Course> courses) {
         this.courses = courses;
+        coursesSelected = new CourseSelectionList(); 
         setHeader();
         setAccordion();
         this.getChildren().addAll(header, courseList);
@@ -28,6 +30,10 @@ public class CourseList extends VBox {
 
     public int getSize() {
         return this.courses.size();
+    }
+
+    public CourseSelectionList getCourseSelection() {
+        return this.coursesSelected;
     }
 
     private void setAccordion() {
@@ -99,7 +105,10 @@ public class CourseList extends VBox {
             gridPane.add(new Label(courseGroup.getModality()), 5, rowIndex);
 
             CheckBox newCheckbox = new CheckBox();
+            newCheckbox.setId(course.getCourseCode() + " " + courseGroup.getGroupNumber());
             newCheckbox.setOnAction(event -> {
+                System.out.println(newCheckbox.getId());
+                coursesSelected.addCourseSelection(new CourseSelection(course.getCourseCode(), courseGroup.getGroupNumber()));
                 if (newCheckbox.isSelected()) {
                     for (CheckBox checkbox : checkBoxes) {
                         if (checkbox != newCheckbox) {

@@ -11,7 +11,7 @@ public class AcademicHistoryRepository extends Repository {
     private static AcademicHistoryRepository instance;
     private Result academicRecords;
 
-    private AcademicHistoryRepository(int studentID) {
+    private AcademicHistoryRepository (int studentID) {
         super();
         academicRecords = loadAcademicRecords(studentID);
     }
@@ -24,7 +24,7 @@ public class AcademicHistoryRepository extends Repository {
     }
 
     public Result getAcademicRecords() {
-        return academicRecords;
+        return this.academicRecords;
     }
 
     private Result loadAcademicRecords (int studentID) {
