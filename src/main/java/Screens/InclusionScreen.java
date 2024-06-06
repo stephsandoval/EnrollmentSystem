@@ -19,11 +19,13 @@ public class InclusionScreen extends GeneralScreen implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         controller = InclusionController.getInstance(studentID);
+        controller.loadCourses(studentID);
         setCourseList();
     }
 
     private void setCourseList() {
         VBox courseList = controller.getCourseList();
+        anchorPane.setPrefHeight(controller.getIdealHeight());
         anchorPane.getChildren().add(courseList);
         AnchorPane.setTopAnchor(courseList, 10.0);
         AnchorPane.setBottomAnchor(courseList, 10.0);

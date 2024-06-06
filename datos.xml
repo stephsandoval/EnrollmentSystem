@@ -214,6 +214,12 @@
         <EnrollmentCourse Course = "MA3405" Teacher = "11" Clasroom = "G18-03" Modality = "S" Campus = "Cartago" Group = "1" ClassDays = "KJ" Capacity = "40" Start = "17:00:00" End = "18:50:00" />
         <EnrollmentCourse Course = "MA3405" Teacher = "12" Clasroom = "D3-13" Modality = "R" Campus = "Cartago" Group = "2" ClassDays = "MV" Capacity = "40" Start = "07:30:00" End = "09:20:00" />
       </EnrollmentCourses>
+      <InclusionCourses>
+        <InclusionCourse Course = "CS2101" Teacher = "2" Clasroom = "0" Modality = "V" Campus = "Cartago" Group = "2" ClassDays = "M" Capacity = "32" Start = "15:00:00" End = "17:50:00" />
+        <InclusionCourse Course = "CS2101" Teacher = "3" Clasroom = "0" Modality = "V" Campus = "Cartago" Group = "3" ClassDays = "K" Capacity = "32" Start = "18:00:00" End = "20:50:00" />
+        <InclusionCourse Course = "IC4700" Teacher = "5" Clasroom = "B3-01" Modality = "S" Campus = "Cartago" Group = "1" ClassDays = "M" Capacity = "23" Start = "07:30:00" End = "09:20:00" />
+        <InclusionCourse Course = "IC6821" Teacher = "10" Clasroom = "B6-02" Modality = "S" Campus = "Cartago" Group = "2" ClassDays = "MV" Capacity = "26" Start = "07:30:00" End = "09:20:00" />
+      </InclusionCourses>
       <AcademicHistory>
         <History Student = "2023395946" Course = "CI0200" Group = "114" Period = "1S-2023" Grade = "100" Condition = "Suficiencia" />
         <History Student = "2023395946" Course = "IC1400" Group = "4" Period = "1S-2023" Grade = "100" Condition = "Cursado" />

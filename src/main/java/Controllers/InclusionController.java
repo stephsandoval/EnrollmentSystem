@@ -1,49 +1,52 @@
 package Controllers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
+import Database.InclusionRepository;
+import Database.Result;
 import Enrollment.Course;
 import Enrollment.CourseList;
-import Enrollment.Group;
 
 public class InclusionController {
     
     private static InclusionController instance;
-    private ArrayList<Course> courses;
-    private CourseList courseList;
-    private int studentID;
+    private InclusionRepository repository;
 
-    private InclusionController (int studentID) {
-        this.studentID = studentID;
-        courses = getCourses();
-        courseList = new CourseList(courses);
+    private CourseList courseList;
+    private int maxGroups = 0;
+
+    private InclusionController () {
+        repository = InclusionRepository.getInstance();
     }
 
     public static synchronized InclusionController getInstance(int studentID) {
         if (instance == null) {
-            instance = new InclusionController(studentID);
+            instance = new InclusionController();
         }
         return instance;
     }
 
-    private ArrayList<Course> getCourses() {
+    public void loadCourses (int studentID) {
+        Result result = repository.getInclusionCourses(studentID);
         ArrayList<Course> courses = new ArrayList<>();
-        courses.add(new Course("CI1107", "Comunicación Oral", new ArrayList<>(Arrays.asList(
-                new Group("Cartago", 1, "L 09:30-12:20", "Amador Solano Gabriela", 30, "Regular"),
-                new Group("Cartago", 2, "K 09:30-12:20", "Amador Solano Gabriela", 30, "Regular"),
-                new Group("Cartago", 3, "V 13:00-15:50", "Romero Álvarez Ericka", 30, "Regular")
-        ))));
-        courses.add(new Course("CI1231", "Inglés II", new ArrayList<>(Arrays.asList(
-                new Group("Cartago", 1, "M 11:00-12:20", "Smith Johnson", 25, "Regular")
-        ))));
-        courses.add(new Course("IC3002", "Análisis de Algoritmos", new ArrayList<>(Arrays.asList(
-                new Group("Cartago", 2, "J 13:00-15:50", "Doe Jane", 20, "Regular")
-        ))));
-        return courses;
+        int courseIndex = 0;
+        if (result.getResultCodes() == 0){
+            for (Object course : result.getDataset()) {
+                courses.add((Course)(course));
+                if (courses.get(courseIndex).getGroups().size() > maxGroups){
+                    maxGroups = courses.get(courseIndex).getGroups().size();
+                }
+            }
+        }
+        this.courseList = new CourseList(courses);
     }
 
     public CourseList getCourseList() {
         return this.courseList;
+    }
+
+    public double getIdealHeight() {
+        int amountElements = maxGroups + courseList.getSize();
+        return amountElements * 30;
     }
 }

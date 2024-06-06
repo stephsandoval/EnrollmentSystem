@@ -8,28 +8,28 @@ import java.util.ArrayList;
 import Enrollment.Course;
 import Enrollment.Group;
 
-public class MatriculaRepository extends Repository {
+public class InclusionRepository extends Repository {
     
-    private static MatriculaRepository instance;
-    
-    private MatriculaRepository() {
+    private static InclusionRepository instance;
+
+    private InclusionRepository() {
         super();
     }
 
-    public static synchronized MatriculaRepository getInstance() {
+    public static synchronized InclusionRepository getInstance() {
         if (instance == null) {
-            instance = new MatriculaRepository();
+            instance = new InclusionRepository();
         }
         return instance;
     }
 
-    public Result getEnrollmentCourses (int studentID) {
+    public Result getInclusionCourses (int studentID) {
         ResultSet resultSet;
         Result result = new Result(); 
 
         try {
             connection = DriverManager.getConnection(connectionURL);
-            String storedProcedureQuery = "{CALL dbo.getEnrollmentCourses(?, ?)}";
+            String storedProcedureQuery = "{CALL dbo.getInclusionCourses(?, ?)}";
             callableStatement = connection.prepareCall(storedProcedureQuery);
 
             callableStatement.setInt(1, studentID);
@@ -62,7 +62,7 @@ public class MatriculaRepository extends Repository {
 
         try {
             connection = DriverManager.getConnection(connectionURL);
-            String storedProcedureQuery = "{CALL dbo.getEnrollmentGroupOptions(?, ?, ?)}";
+            String storedProcedureQuery = "{CALL dbo.getInclusionGroupOptions(?, ?, ?)}";
             callableStatement = connection.prepareCall(storedProcedureQuery);
 
             callableStatement.setInt(1, studentID);
