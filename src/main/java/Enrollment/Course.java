@@ -7,10 +7,18 @@ public class Course {
     private String courseCode, course;
     private ArrayList<Group> groups;
 
-    public Course (String courseCode, String course, ArrayList<Group> groups) {
+    public Course (String courseCode, String course, ArrayList<Object> groups) {
         this.courseCode = courseCode;
         this.course = course;
-        this.groups = groups;
+        this.groups = loadGroups(groups);
+    }
+
+    private ArrayList<Group> loadGroups (ArrayList<Object> groups) {
+        ArrayList<Group> groupList = new ArrayList<>();
+        for (Object group : groups) {
+            groupList.add((Group) group);
+        }
+        return groupList;
     }
 
     public void setCourseCode (String courseCode) {

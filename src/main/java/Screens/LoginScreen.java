@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Database.AcademicHistoryRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,6 +24,7 @@ public class LoginScreen extends GeneralScreen implements Initializable {
     }
 
     public void loadFirstInformation (ActionEvent event){
+        AcademicHistoryRepository.getInstance(studentID);
         try {
             loadMatriculaScreen(event);
         } catch (IOException exception) {}

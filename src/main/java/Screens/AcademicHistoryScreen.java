@@ -25,11 +25,11 @@ public class AcademicHistoryScreen extends GeneralScreen implements Initializabl
 
     private void setRecordList() {
         TableView<Record> recordList = controller.getRecordList();
+        recordList.setPrefWidth(654);
+        recordList.setPrefHeight(382);
+        recordList.setLayoutX(232);
+        recordList.setLayoutY(103);
         anchorPane.getChildren().add(recordList);
-        AnchorPane.setTopAnchor(recordList, 10.0);
-        AnchorPane.setBottomAnchor(recordList, 10.0);
-        AnchorPane.setLeftAnchor(recordList, 10.0);
-        AnchorPane.setRightAnchor(recordList, 10.0);
     }
     
 }

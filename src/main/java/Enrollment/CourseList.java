@@ -26,6 +26,10 @@ public class CourseList extends VBox {
         this.getChildren().addAll(header, courseList);
     }
 
+    public int getSize() {
+        return this.courses.size();
+    }
+
     private void setAccordion() {
         courseList = new Accordion();
         for (Course course : courses) {
@@ -68,11 +72,11 @@ public class CourseList extends VBox {
         ColumnConstraints teacher = new ColumnConstraints();
         teacher.setPercentWidth(30);
         ColumnConstraints capacity = new ColumnConstraints();
-        capacity.setPercentWidth(10);
+        capacity.setPercentWidth(7);
         ColumnConstraints modality = new ColumnConstraints();
-        modality.setPercentWidth(10);
+        modality.setPercentWidth(18);
         ColumnConstraints select = new ColumnConstraints();
-        select.setPercentWidth(10);
+        select.setPercentWidth(5);
 
         gridPane.getColumnConstraints().addAll(campus, group, schedule, teacher, capacity, modality, select);
 
@@ -82,7 +86,7 @@ public class CourseList extends VBox {
         gridPane.add(new Label("PROFESOR(ES)"), 3, rowIndex);
         gridPane.add(new Label("CUPO"), 4, rowIndex);
         gridPane.add(new Label("TIPO"), 5, rowIndex);
-        gridPane.add(new Label("ESCOGER"), 6, rowIndex);
+        gridPane.add(new Label(" "), 6, rowIndex);
 
         rowIndex++;
 
