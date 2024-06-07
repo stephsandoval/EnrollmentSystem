@@ -9,11 +9,13 @@ public class CourseSelection {
     
     private String courseID, schedule;
     private int groupNumber;
+    private boolean selected;
 
-    public CourseSelection (String courseID, int groupNumber, String schedule) {
+    public CourseSelection (String courseID, int groupNumber, String schedule, boolean selected) {
         this.courseID = courseID;
         this.groupNumber = groupNumber;
         this.schedule = schedule;
+        this.selected = selected;
     }
 
     public void setCourseID (String courseID) {
@@ -28,6 +30,10 @@ public class CourseSelection {
         this.schedule = schedule;
     }
 
+    public void setSelected (boolean condition) {
+        this.selected = condition;
+    }
+
     public String getCourseID() {
         return this.courseID;
     }
@@ -40,25 +46,28 @@ public class CourseSelection {
         return this.schedule;
     }
 
-    public boolean clashesCourse (CourseSelection otherCourse) {
+    public boolean isSelected() {
+        return this.selected;
+    }
+
+    public boolean clashesCourse(CourseSelection otherCourse) {
+
+        if (this.courseID.equals(otherCourse.getCourseID()) && this.groupNumber == otherCourse.getGroupNumber()){
+            return false;
+        }
+
         boolean clashes = false;
-        String thisCourseDays, otherCourseDays;
-        LocalTime thisCourseStartHour, thisCourseEndHour, otherCourseStartHour, otherCourseEndHour;
+        String thisCourseDays = getDays(this.schedule);
+        String otherCourseDays = getDays(otherCourse.getSchedule());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
-        thisCourseDays = getDays(this.schedule);
-        otherCourseDays = getDays(otherCourse.getSchedule());
+        LocalTime thisCourseStartHour = LocalTime.parse(getStartHour(this.schedule), formatter);
+        LocalTime thisCourseEndHour = LocalTime.parse(getEndHour(this.schedule), formatter);
+        LocalTime otherCourseStartHour = LocalTime.parse(getStartHour(otherCourse.getSchedule()), formatter);
+        LocalTime otherCourseEndHour = LocalTime.parse(getEndHour(otherCourse.getSchedule()), formatter);
 
-        thisCourseStartHour = LocalTime.parse(getStartHour(this.schedule), formatter);
-        thisCourseEndHour = LocalTime.parse(getEndHour(this.schedule), formatter);
-        otherCourseStartHour = LocalTime.parse(getStartHour(otherCourse.getSchedule()), formatter);
-        otherCourseEndHour = LocalTime.parse(getEndHour(otherCourse.getSchedule()), formatter);
-
-        if (haveCommonDay(thisCourseDays, otherCourseDays)){
-            if (otherCourseStartHour.isAfter(thisCourseStartHour) && otherCourseStartHour.isBefore(thisCourseEndHour)){
-                clashes = true;
-            }
-            if (otherCourseEndHour.isAfter(thisCourseStartHour)){
+        if (haveCommonDay(thisCourseDays, otherCourseDays)) {
+            if (otherCourseStartHour.isBefore(thisCourseEndHour) && thisCourseStartHour.isBefore(otherCourseEndHour)) {
                 clashes = true;
             }
         }

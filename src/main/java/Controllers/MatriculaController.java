@@ -55,8 +55,4 @@ public class MatriculaController {
     public CourseSelectionList getCourseSelection() {
         return this.courseList.getCourseSelection();
     }
-
-    public CourseSelectionList getCourseDeselection() {
-        return this.courseList.getCourseDeselection();
-    }
 }

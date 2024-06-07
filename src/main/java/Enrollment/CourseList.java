@@ -16,15 +16,13 @@ import javafx.scene.layout.VBox;
 public class CourseList extends VBox {
     
     private CourseSelectionList coursesSelected;
-    private CourseSelectionList coursesDeselected;
     private ArrayList<Course> courses;
     private Accordion courseList;
     private HBox header;
     
     public CourseList(ArrayList<Course> courses) {
         this.courses = courses;
-        coursesSelected = new CourseSelectionList(); 
-        coursesDeselected = new CourseSelectionList();
+        coursesSelected = new CourseSelectionList();
         setHeader();
         setAccordion();
         this.getChildren().addAll(header, courseList);
@@ -36,10 +34,6 @@ public class CourseList extends VBox {
 
     public CourseSelectionList getCourseSelection() {
         return this.coursesSelected;
-    }
-
-    public CourseSelectionList getCourseDeselection() {
-        return this.coursesDeselected;
     }
 
     private void setAccordion() {
@@ -70,11 +64,11 @@ public class CourseList extends VBox {
         TitledPane titledPane = new TitledPane();
         ArrayList<CheckBox> checkBoxes = new ArrayList<>();
         int rowIndex = 0;
-
+    
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(10));
-
+    
         ColumnConstraints campus = new ColumnConstraints();
         campus.setPercentWidth(10);
         ColumnConstraints group = new ColumnConstraints();
@@ -89,9 +83,9 @@ public class CourseList extends VBox {
         modality.setPercentWidth(18);
         ColumnConstraints select = new ColumnConstraints();
         select.setPercentWidth(5);
-
+    
         gridPane.getColumnConstraints().addAll(campus, group, schedule, teacher, capacity, modality, select);
-
+    
         gridPane.add(new Label("SEDE"), 0, rowIndex);
         gridPane.add(new Label("GRUPO"), 1, rowIndex);
         gridPane.add(new Label("HORARIO"), 2, rowIndex);
@@ -99,9 +93,9 @@ public class CourseList extends VBox {
         gridPane.add(new Label("CUPO"), 4, rowIndex);
         gridPane.add(new Label("TIPO"), 5, rowIndex);
         gridPane.add(new Label(" "), 6, rowIndex);
-
+    
         rowIndex++;
-
+    
         for (Group courseGroup : course.getGroups()) {
             gridPane.add(new Label(courseGroup.getCampus()), 0, rowIndex);
             gridPane.add(new Label(String.valueOf(courseGroup.getGroupNumber())), 1, rowIndex);
@@ -109,54 +103,55 @@ public class CourseList extends VBox {
             gridPane.add(new Label(courseGroup.getTeacher()), 3, rowIndex);
             gridPane.add(new Label(String.valueOf(courseGroup.getCapacity())), 4, rowIndex);
             gridPane.add(new Label(courseGroup.getModality()), 5, rowIndex);
-
+    
             CheckBox newCheckbox = new CheckBox();
             newCheckbox.setId(course.getCourseCode() + " " + courseGroup.getGroupNumber());
-            if (courseGroup.isSelected()){
+            if (courseGroup.isSelected()) {
                 newCheckbox.setSelected(true);
-                coursesSelected.addCourseSelection(new CourseSelection(course.getCourseCode(), courseGroup.getGroupNumber(), courseGroup.getSchedule()));
+                coursesSelected.addCourseSelection(new CourseSelection(course.getCourseCode(), courseGroup.getGroupNumber(), courseGroup.getSchedule(), true));
             }
-
+    
             newCheckbox.setOnAction(event -> {
-                CourseSelection selection = new CourseSelection(course.getCourseCode(), courseGroup.getGroupNumber(), courseGroup.getSchedule());
-
+                CourseSelection selection = new CourseSelection(course.getCourseCode(), courseGroup.getGroupNumber(), courseGroup.getSchedule(), true);
+    
                 if (!newCheckbox.isSelected()) {
-                    coursesSelected.getSelectedCourses().removeIf(item -> 
-                        item.getCourseID().equals(course.getCourseCode()) && 
-                        item.getGroupNumber() == courseGroup.getGroupNumber());
-                    coursesDeselected.addCourseSelection(selection);
-                } else {
-                    boolean valid = true;
-                    for (CourseSelection courseSelected : coursesSelected.getSelectedCourses()){
-                        if (courseSelected.clashesCourse(selection)){
-                            newCheckbox.setSelected(false);
-                            System.out.println("the course clashes with " + courseSelected.getCourseID());
-                            valid = false;
+                    for (CourseSelection courseSelected : coursesSelected.getSelectedCourses()) {
+                        if (courseSelected.getCourseID().equals(course.getCourseCode()) && courseSelected.getGroupNumber() == courseGroup.getGroupNumber()){
+                            courseSelected.setSelected(false);
                         }
                     }
-                    if (valid){
+                } else {
+                    boolean valid = true;
+                    for (CourseSelection courseSelected : coursesSelected.getSelectedCourses()) {
+                        if (courseSelected.clashesCourse(selection)) {
+                            newCheckbox.setSelected(false);
+                            System.out.println("The course clashes with " + courseSelected.getCourseID());
+                            valid = false;
+                            break;
+                        }
+                    }
+                    if (valid) {
                         coursesSelected.addCourseSelection(selection);
-                        if (newCheckbox.isSelected()) {
-                            for (CheckBox checkbox : checkBoxes) {
-                                if (checkbox != newCheckbox) {
-                                    checkbox.setSelected(false);
-                                }
+                        // Ensure only one checkbox is selected
+                        for (CheckBox checkbox : checkBoxes) {
+                            if (checkbox != newCheckbox) {
+                                checkbox.setSelected(false);
                             }
                         }
                     }
                 }
             });
-
+    
             checkBoxes.add(newCheckbox);
             gridPane.add(newCheckbox, 6, rowIndex);
-
+    
             rowIndex++;
         }
-
+    
         titledPane.setGraphic(createHeaderPane(course));
         titledPane.setContent(gridPane);
         return titledPane;
-    }
+    }    
 
     private HBox createHeaderPane (Course course) {
         HBox headerPane = new HBox();

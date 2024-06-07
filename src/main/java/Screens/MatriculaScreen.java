@@ -1,11 +1,9 @@
 package Screens;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import Controllers.MatriculaController;
-import Enrollment.CourseSelection;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
@@ -32,15 +30,5 @@ public class MatriculaScreen extends GeneralScreen implements Initializable {
         AnchorPane.setBottomAnchor(courseList, 10.0);
         AnchorPane.setLeftAnchor(courseList, 10.0);
         AnchorPane.setRightAnchor(courseList, 10.0);
-        printCoursesSelected();
-    }
-
-    private void printCoursesSelected() {
-        System.out.println("here");
-        ArrayList<CourseSelection> coursesSelected;
-        coursesSelected = controller.getCourseSelection().getSelectedCourses();
-        for (CourseSelection course : coursesSelected) {
-            System.out.println(course.getCourseID() + " " + course.getGroupNumber());
-        }
     }
 }
