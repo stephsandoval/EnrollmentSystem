@@ -126,6 +126,26 @@ CREATE TABLE Payment (
     FOREIGN KEY (StudentID) REFERENCES Student(StudentID)
 );
 
+CREATE TABLE SelectedEnrollmentCourse (
+	CourseID VARCHAR(8) NOT NULL,
+	StudentID INT NOT NULL,
+	GroupNumber INT NOT NULL,
+	Selected BIT NOT NULL,
+	PRIMARY KEY (CourseID, StudentID),
+	FOREIGN KEY (CourseID) REFERENCES Course(CourseID),
+	FOREIGN KEY (StudentID) REFERENCES Student(StudentID)
+);
+
+CREATE TABLE SelectedInclusionCourse (
+	CourseID VARCHAR(8) NOT NULL,
+	StudentID INT NOT NULL,
+	GroupNumber INT NOT NULL,
+	Selected BIT NOT NULL,
+	PRIMARY KEY (CourseID, StudentID),
+	FOREIGN KEY (CourseID) REFERENCES Course(CourseID),
+	FOREIGN KEY (StudentID) REFERENCES Student(StudentID)
+);
+
 --CREATE TABLE DatabaseError (
 --	ErrorID INT NOT NULL IDENTITY(1,1),
 --	Username VARCHAR(64) NULL,
@@ -140,6 +160,8 @@ CREATE TABLE Payment (
 
 --DROP TABLE EnrollmentCourse;
 --DROP TABLE InclusionCourse;
+--DROP TABLE SelectedEnrollmentCourse;
+--DROP TABLE SelectedInclusionCourse;
 --DROP TABLE Teacher;
 --DROP TABLE Classroom;
 --DROP TABLE Payment;
@@ -153,3 +175,10 @@ CREATE TABLE Payment (
 --DROP TABLE Campus;
 --DROP TABLE CareerPlan;
 --DROP TABLE Career;
+
+CREATE TYPE dbo.CourseArray AS TABLE (
+      CourseID VARCHAR(8)
+	, GroupNumber INT
+);
+
+DROP TYPE dbo.CourseArray

@@ -19,6 +19,12 @@ BEGIN
 			, T.TeacherName
 			, IC.Capacity
 			, M.Modality
+			, CASE
+				WHEN EXISTS (SELECT 1 FROM dbo.SelectedInclusionCourse SIC 
+					WHERE SIC.CourseID = @inCourseID AND SIC.StudentID = @inStudent
+						AND SIC.GroupNumber = IC.GroupNumber AND SIC.Selected = 1) THEN 1
+				ELSE 0
+			  END AS 'Selected'
 		FROM dbo.InclusionCourse IC
 		INNER JOIN dbo.Campus CA ON CA.CampusID = IC.CampusID
 		INNER JOIN dbo.Teacher T ON T.TeacherID = IC.TeacherID

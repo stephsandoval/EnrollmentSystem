@@ -4,14 +4,16 @@ public class Group {
     
     private String campus, schedule, teacher, modality;
     private int groupNumber, capacity;
+    boolean selected;
 
-    public Group (String campus, int groupNumber, String schedule, String teacher, int capacity, String modality) {
+    public Group (String campus, int groupNumber, String schedule, String teacher, int capacity, String modality, boolean selected) {
         this.campus = campus;
         this.groupNumber = groupNumber;
         this.schedule = schedule;
         this.teacher = teacher;
         this.capacity = capacity;
         this.modality = modality;
+        this.selected = selected;
     }
 
     public void setCampus (String campus) {
@@ -38,6 +40,10 @@ public class Group {
         this.modality = modality;
     }
 
+    public void setSelected (boolean condition) {
+        this.selected = condition;
+    }
+
     public String getCampus() {
         return this.campus;
     }
@@ -60,5 +66,9 @@ public class Group {
 
     public String getModality() {
         return this.modality;
+    }
+
+    public boolean isSelected() {
+        return this.selected;
     }
 }

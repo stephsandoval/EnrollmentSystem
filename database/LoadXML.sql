@@ -4,7 +4,7 @@ BEGIN TRY
 	DECLARE @xmlData XML
 
 	SELECT @xmlData = X
-	FROM OPENROWSET (BULK 'C:\Users\Stephanie\OneDrive - Estudiantes ITCR\Semestre III\Requerimientos de Software\Sistema\datos.xml', SINGLE_BLOB) AS xmlfile(X)
+	FROM OPENROWSET (BULK 'C:\Users\Stephanie\OneDrive - Estudiantes ITCR\Semestre III\Requerimientos de Software\System\datos.xml', SINGLE_BLOB) AS xmlfile(X)
 
 	DECLARE @value INT
 	EXEC sp_xml_preparedocument @value OUTPUT, @xmlData
@@ -134,6 +134,49 @@ BEGIN TRY
 	JOIN dbo.ModalityType M ON LEFT(M.Modality, 1) = TEC.Modality
 	JOIN dbo.Campus C ON C.CampusShortname = TEC.CampusShortName;
 
+	DECLARE @TempInclusionCourses TABLE (
+		CourseID VARCHAR(8),
+		TeacherID INT,
+		ClassroomID VARCHAR(16),
+		Modality CHAR(1),
+		CampusShortName VARCHAR(16),
+		GroupNumber INT,
+		Capacity INT,
+		ClassDays VARCHAR(8),
+		StartHour TIME,
+		EndHour TIME
+	)
+
+	INSERT INTO @TempInclusionCourses (CourseID, TeacherID, ClassroomID, Modality, CampusShortName, GroupNumber, Capacity, ClassDays, StartHour, EndHour)
+	SELECT 
+		IC.inclusionCourse.value('@Course', 'VARCHAR(8)') AS CourseID,
+		IC.inclusionCourse.value('@Teacher', 'INT') AS TeacherID,
+		IC.inclusionCourse.value('@Clasroom', 'VARCHAR(16)') AS ClassroomID,
+		IC.inclusionCourse.value('@Modality', 'CHAR') AS Modality,
+		IC.inclusionCourse.value('@Campus', 'VARCHAR(16)') AS CampusShortName,
+		IC.inclusionCourse.value('@Group', 'INT') AS GroupNumber,
+		IC.inclusionCourse.value('@Capacity', 'INT') AS Capacity,
+		IC.inclusionCourse.value('@ClassDays', 'VARCHAR(8)') AS ClassDays,
+		IC.inclusionCourse.value('@Start', 'TIME(0)') AS StartHour,
+		IC.inclusionCourse.value('@End', 'TIME(0)') AS EndHour
+	FROM @xmlData.nodes('/Data/InclusionCourses/InclusionCourse') AS IC(inclusionCourse);
+
+	INSERT INTO dbo.InclusionCourse(CourseID, TeacherID, ClassroomID, ModalityID, CampusID, GroupNumber, Capacity, ClassDays, StartHour, EndHour)
+	SELECT 
+		TIC.CourseID,
+		TIC.TeacherID,
+		TIC.ClassroomID,
+		M.ModalityID,
+		C.CampusID,
+		TIC.GroupNumber,
+		TIC.Capacity,
+		TIC.ClassDays,
+		TIC.StartHour,
+		TIC.EndHour
+	FROM @TempInclusionCourses TIC
+	JOIN dbo.ModalityType M ON LEFT(M.Modality, 1) = TIC.Modality
+	JOIN dbo.Campus C ON C.CampusShortname = TIC.CampusShortName;
+
 	INSERT INTO AcademicHistory (StudentID, CourseID, EnrollmentPeriod, GroupNumber, Grade, Condition, Aprobado)
 	SELECT 
 		AH.history.value('@Student', 'INT') AS StudentID,
@@ -183,5 +226,5 @@ SELECT * FROM Corequirement;
 SELECT * FROM CoursePerCareerPlan;
 SELECT * FROM EnrollmentCourse;
 SELECT * FROM AcademicHistory;
-
+SELECT * FROM InclusionCourse;
 SELECT * FROM DatabaseError;

@@ -1,61 +1,75 @@
 ALTER PROCEDURE dbo.updateSelectedCourse (
-	  @inStudentID INT
-	, @inCourseID VARCHAR(8)
-	, @inGroupNumber INT
-	, @inSelected BIT
-	, @outResultCode INT OUTPUT
+    @inStudentID INT,
+    @inCourseSelection dbo.CourseArray READONLY,
+    @outResultCode INT OUTPUT
 )
 AS
 BEGIN
-	SET NOCOUNT ON;
-	BEGIN TRY
+    SET NOCOUNT ON;
+    BEGIN TRY
+        DECLARE @coursesSelected INT;
+        DECLARE @currentCourse VARCHAR(8);
+        DECLARE @courseIndex INT;
+        DECLARE @groupNumber INT;
+        DECLARE @selected BIT;
 
-		SET @outResultCode = 0;
+        DECLARE @PreviouslySelectedCourse TABLE (
+              SEC INT IDENTITY(1,1)
+            , CourseID VARCHAR(8)
+            , GroupNumber INT
+            , Selected BIT
+        );
 
-		SELECT @outResultCode AS outResultCode;
+        SET @outResultCode = 0;
 
-		IF EXISTS (SELECT 1 FROM dbo.SelectedCourse SC
-			WHERE SC.CourseID = @inCourseID AND SC.StudentID = @inStudentID)
-		BEGIN
-			UPDATE SC
-			SET 
-				  SC.Selected = @inSelected
-				, SC.GroupNumber = @inGroupNumber
-			WHERE SC.CourseID = @inCourseID AND SC.StudentID = @inStudentID
-		END
-		ELSE
-		BEGIN
-			INSERT INTO dbo.SelectedCourse (
-				  CourseID
-				, StudentID
-				, GroupNumber
-				, Selected
-			)
-			VALUES (
-				  @inCourseID
-				, @inStudentID
-				, @inGroupNumber
-				, @inSelected
-			);
-		END
+        SELECT @outResultCode AS outResultCode;
 
-	END TRY
-	BEGIN CATCH
+        INSERT INTO @PreviouslySelectedCourse (
+              CourseID
+            , GroupNumber
+            , Selected
+        )
+        SELECT SC.CourseID
+            , SC.GroupNumber
+            , SC.Selected
+        FROM dbo.SelectedEnrollmentCourse SC
+        WHERE SC.StudentID = @inStudentID;
 
-		INSERT INTO DatabaseError VALUES (
-			  SUSER_SNAME()
-			, ERROR_NUMBER()
-			, ERROR_STATE()
-			, ERROR_SEVERITY()
-			, ERROR_LINE()
-			, ERROR_PROCEDURE()
-			, ERROR_MESSAGE()
-			, GETDATE()
+        UPDATE SC
+        SET SC.GroupNumber = CS.GroupNumber, SC.Selected = 1
+        FROM dbo.SelectedEnrollmentCourse SC
+        INNER JOIN @inCourseSelection CS ON SC.CourseID = CS.CourseID
+        WHERE SC.StudentID = @inStudentID;
+
+        UPDATE SC
+        SET SC.Selected = 0
+        FROM dbo.SelectedEnrollmentCourse SC
+        LEFT JOIN @inCourseSelection CS ON SC.CourseID = CS.CourseID
+        WHERE SC.StudentID = @inStudentID AND CS.CourseID IS NULL;
+
+        INSERT INTO dbo.SelectedEnrollmentCourse (StudentID, CourseID, GroupNumber, Selected)
+        SELECT @inStudentID, CS.CourseID, CS.GroupNumber, 1
+        FROM @inCourseSelection CS
+        LEFT JOIN dbo.SelectedEnrollmentCourse SC ON SC.CourseID = CS.CourseID AND SC.StudentID = @inStudentID
+        WHERE SC.CourseID IS NULL;
+
+    END TRY
+    BEGIN CATCH
+
+        INSERT INTO DatabaseError VALUES (
+			SUSER_SNAME(),
+			ERROR_NUMBER(),
+			ERROR_STATE(),
+			ERROR_SEVERITY(),
+			ERROR_LINE(),
+			ERROR_PROCEDURE(),
+			ERROR_MESSAGE(),
+			GETDATE()
 		);
 
 		SET @outResultCode = 50008;
 		SELECT @outResultCode AS outResultCode;
 
-	END CATCH;
-	SET NOCOUNT OFF;
+    END CATCH;
+    SET NOCOUNT OFF;
 END

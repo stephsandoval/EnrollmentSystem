@@ -84,7 +84,8 @@ public class InclusionRepository extends Repository {
                     String teacher = resultSet.getString(5);
                     int capacity = resultSet.getInt(6);
                     String modality = resultSet.getString(7);
-                    result.addDatasetItem(new Group(campus, groupNumber, schedule, teacher, capacity, modality));
+                    boolean selected = resultSet.getBoolean(8);
+                    result.addDatasetItem(new Group(campus, groupNumber, schedule, teacher, capacity, modality, selected));
                 }
             }
         } catch (Exception exception) {} finally {

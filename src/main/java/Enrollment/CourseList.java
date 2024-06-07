@@ -106,6 +106,10 @@ public class CourseList extends VBox {
 
             CheckBox newCheckbox = new CheckBox();
             newCheckbox.setId(course.getCourseCode() + " " + courseGroup.getGroupNumber());
+            if (courseGroup.isSelected()){
+                newCheckbox.setSelected(true);
+            }
+
             newCheckbox.setOnAction(event -> {
                 System.out.println(newCheckbox.getId());
                 coursesSelected.addCourseSelection(new CourseSelection(course.getCourseCode(), courseGroup.getGroupNumber()));
@@ -117,6 +121,7 @@ public class CourseList extends VBox {
                     }
                 }
             });
+            
             checkBoxes.add(newCheckbox);
             gridPane.add(newCheckbox, 6, rowIndex);
 

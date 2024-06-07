@@ -1,9 +1,14 @@
 package Database;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+
+import com.microsoft.sqlserver.jdbc.SQLServerDataTable;
 
 import Enrollment.Course;
 import Enrollment.Group;
@@ -12,9 +17,11 @@ public class MatriculaRepository extends Repository {
     
     private static MatriculaRepository instance;
     private Result enrollmentCourses;
+    private int studentID;
     
     private MatriculaRepository (int studentID) {
         super();
+        this.studentID = studentID;
         enrollmentCourses = loadEnrollmentCourses(studentID);
     }
 
@@ -90,12 +97,41 @@ public class MatriculaRepository extends Repository {
                     String teacher = resultSet.getString(5);
                     int capacity = resultSet.getInt(6);
                     String modality = resultSet.getString(7);
-                    result.addDatasetItem(new Group(campus, groupNumber, schedule, teacher, capacity, modality));
+                    boolean selected = resultSet.getBoolean(8);
+                    result.addDatasetItem(new Group(campus, groupNumber, schedule, teacher, capacity, modality, selected));
                 }
             }
         } catch (Exception exception) {} finally {
             closeResources();
         }
         return result;
+    }
+
+    public void updateCourseSelection (ArrayList<Object[]> coursesSelected) {
+
+        try (Connection connection = DriverManager.getConnection(connectionURL)) {
+            // Create a SQLServerDataTable to represent the TVP
+            SQLServerDataTable courseArray = new SQLServerDataTable();
+            courseArray.addColumnMetadata("CourseID", java.sql.Types.VARCHAR);
+            courseArray.addColumnMetadata("GroupNumber", java.sql.Types.INTEGER);
+
+            for (Object[] row : coursesSelected) {
+                courseArray.addRow(row);
+            }
+
+            String sql = "{call dbo.updateSelectedCourse(?, ?, ?)}";
+            try (CallableStatement stmt = connection.prepareCall(sql)) {
+                stmt.setInt(1, studentID);
+                stmt.setObject(2, courseArray);
+                stmt.registerOutParameter(3, java.sql.Types.INTEGER);
+
+                stmt.execute();
+
+                int resultCode = stmt.getInt(3);
+                System.out.println("Result Code: " + resultCode);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

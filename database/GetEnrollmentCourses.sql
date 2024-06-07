@@ -1,26 +1,47 @@
-ALTER FUNCTION dbo.GetEnrollmentCourses (@inStudent INT)
-RETURNS @CourseOptions TABLE (
-	  CourseID VARCHAR(8)
-	, CourseName VARCHAR(64)
+ALTER PROCEDURE dbo.getEnrollmentCourses (
+	  @inStudent INT
+	, @outResultCode INT OUTPUT
 )
 AS
 BEGIN
-	
-	INSERT INTO @CourseOptions (
-		  CourseID
-		, CourseName
-	)
-	SELECT DISTINCT C.CourseID
-		, C.CourseName
-	FROM dbo.Course C
-	INNER JOIN dbo.CoursePerCareerPlan CPP ON CPP.CourseID = C.CourseID
-	INNER JOIN dbo.Requirement R ON R.CourseID = C.CourseID
-	INNER JOIN dbo.Student S ON S.CareerPlanID = CPP.CareerPlanID
-	WHERE S.StudentID = @inStudent
-		AND NOT EXISTS (SELECT 1 FROM dbo.AcademicHistory AH
-			WHERE AH.CourseID = C.CourseID AND AH.Aprobado = 1)
-		AND EXISTS (SELECT 1 FROM dbo.AcademicHistory AH
-			WHERE R.RequirementID = AH.CourseID AND AH.Aprobado = 1);
+	SET NOCOUNT ON;
+	BEGIN TRY
 
-	RETURN;
+		SET @outResultCode = 0;
+
+		SELECT @outResultCode AS outResultCode;
+
+		SELECT DISTINCT C.CourseID
+			, C.CourseName
+		FROM dbo.Course C
+		INNER JOIN dbo.CoursePerCareerPlan CPP ON CPP.CourseID = C.CourseID
+		INNER JOIN dbo.Requirement R ON R.CourseID = C.CourseID
+		INNER JOIN dbo.Student S ON S.CareerPlanID = CPP.CareerPlanID
+		WHERE S.StudentID = @inStudent
+			AND NOT EXISTS (SELECT 1 FROM dbo.AcademicHistory AH
+				WHERE AH.CourseID = C.CourseID AND AH.Aprobado = 1)
+			AND EXISTS (SELECT 1 FROM dbo.AcademicHistory AH
+				WHERE R.RequirementID = AH.CourseID AND AH.Aprobado = 1)
+			AND EXISTS (SELECT 1 FROM dbo.EnrollmentCourse EH
+				WHERE EH.CourseID = C.CourseID);
+
+	END TRY
+	BEGIN CATCH
+
+		INSERT INTO DatabaseError VALUES (
+			SUSER_SNAME(),
+			ERROR_NUMBER(),
+			ERROR_STATE(),
+			ERROR_SEVERITY(),
+			ERROR_LINE(),
+			ERROR_PROCEDURE(),
+			ERROR_MESSAGE(),
+			GETDATE()
+		);
+
+		SET @outResultCode = 50008;
+		SELECT @outResultCode AS outResultCode;
+
+	END CATCH;
+	SET NOCOUNT OFF;
 END

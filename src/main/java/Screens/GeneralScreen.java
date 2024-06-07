@@ -19,7 +19,7 @@ public class GeneralScreen {
     private final String academicHistoryPath = "src/main/java/FXML/AcademicHistoryScreen.fxml";
     private final String inclusionPath = "src/main/java/FXML/InclusionScreen.fxml";
     
-    protected int studentID = 2023395946;
+    public static final int studentID = 2023395946;
 
     private String path;
 
