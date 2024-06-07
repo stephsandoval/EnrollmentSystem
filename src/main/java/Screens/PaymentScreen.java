@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import Controllers.PaymentController;
+import Notifications.Status;
 import Observers.MessageObserver;
 import Observers.QuiteObserver;
 import Observers.QuiteSubject;
@@ -27,8 +28,8 @@ public class PaymentScreen extends GeneralScreen implements Initializable, Messa
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        controller = PaymentController.getInstance();
-        controller.loadPayments(studentID);
+        controller = PaymentController.getInstance(studentID);
+        controller.loadPayments();
         controller.registerObserver(this);
         this.observers = new ArrayList<>();
         setPaymentList();
@@ -37,10 +38,18 @@ public class PaymentScreen extends GeneralScreen implements Initializable, Messa
 
     @Override
     public void update(String message) {
-        float currentAmount = Float.parseFloat(totalAmount.getText());
-        float updateAmount = Float.parseFloat(message);
-        totalAmount.setText(String.valueOf(currentAmount + updateAmount));
-        System.out.println(message);
+        switch (message.charAt(0)) {
+            case '*':
+                showNotification(Status.PAYMENT, message.substring(1));
+                break;
+            case '+':
+                showNotification(Status.ERROR, message.substring(1));
+                break;
+            default:
+                float currentAmount = Float.parseFloat(totalAmount.getText());
+                float updateAmount = Float.parseFloat(message);
+                totalAmount.setText(String.valueOf(currentAmount + updateAmount));
+        }
     }
 
     @Override
@@ -54,6 +63,10 @@ public class PaymentScreen extends GeneralScreen implements Initializable, Messa
             QuiteObserver observer = iterator.next();
             observer.update();
         }
+        anchorPane.getChildren().clear();
+        controller.loadPayments();
+        totalAmount.setText("0");
+        setPaymentList();
     }
 
     private void setPaymentList() {

@@ -110,7 +110,6 @@ public class MatriculaRepository extends Repository {
     public void updateCourseSelection (ArrayList<Object[]> coursesSelected) {
 
         try (Connection connection = DriverManager.getConnection(connectionURL)) {
-            // Create a SQLServerDataTable to represent the TVP
             SQLServerDataTable courseArray = new SQLServerDataTable();
             courseArray.addColumnMetadata("CourseID", java.sql.Types.VARCHAR);
             courseArray.addColumnMetadata("GroupNumber", java.sql.Types.INTEGER);

@@ -25,5 +25,6 @@ public class NotificationFactory {
     private void populateMap (){
         actionMap = new HashMap<>();
         actionMap.put(Status.ERROR, ErrorNotification.getInstance());
+        actionMap.put(Status.PAYMENT, PayNotification.getInstance());
     }
 }

@@ -21,7 +21,7 @@ public class PaymentRepository extends Repository {
         return instance;
     }
 
-    public Result getPendingPayments(int studentID) {
+    public Result getPendingPayments (int studentID) {
         ResultSet resultSet;
         Result result = new Result(); 
 
@@ -53,5 +53,32 @@ public class PaymentRepository extends Repository {
             closeResources();
         }
         return result;
+    }
+
+    public int updatePayment (int studentID, Payment payment) {
+        ResultSet resultSet;
+        int resultCode = 0;
+
+        try {
+            connection = DriverManager.getConnection(connectionURL);
+            String storedProcedureQuery = "{CALL dbo.updatePayment(?, ?, ?, ?, ?)}";
+            callableStatement = connection.prepareCall(storedProcedureQuery);
+
+            callableStatement.setInt(1, studentID);
+            callableStatement.setString(2, payment.getConvention());
+            callableStatement.setString(3, payment.getDescription());
+            callableStatement.setString(4, payment.getPeriod());
+
+            callableStatement.registerOutParameter(5, Types.INTEGER);
+            callableStatement.execute();
+
+            resultSet = callableStatement.getResultSet();
+            resultSet.next();
+            resultCode = resultSet.getInt(1);
+            System.out.println("Result Code: " + resultCode);
+        } catch (Exception exception) {} finally {
+            closeResources();
+        }
+        return resultCode;
     }
 }

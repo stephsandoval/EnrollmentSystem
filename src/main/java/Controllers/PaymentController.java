@@ -16,18 +16,20 @@ public class PaymentController implements MessageObserver, MessageSubject, Quite
     private static PaymentController instance;
     private ArrayList<MessageObserver> observers;
     private PaymentRepository repository;
+    private int studentID;
 
     private PaymentList paymentList;
     private int amountPayments = 0;
 
-    public PaymentController() {
+    public PaymentController(int studentID) {
         repository = PaymentRepository.getInstance();
         this.observers = new ArrayList<>();
+        this.studentID = studentID;
     }
 
-    public static synchronized PaymentController getInstance() {
+    public static synchronized PaymentController getInstance(int studentID) {
         if (instance == null) {
-            instance = new PaymentController();
+            instance = new PaymentController(studentID);
         }
         return instance;
     }
@@ -53,10 +55,17 @@ public class PaymentController implements MessageObserver, MessageSubject, Quite
     @Override
     public void update() {
         ArrayList<Payment> selectedPayments = this.paymentList.getSelectedPayments();
-        System.out.println(selectedPayments.size());
+        for (Payment payment : selectedPayments) {
+            int result = repository.updatePayment(studentID, payment);
+            if (result == 0){
+                notifyObservers("*Pago exitoso por la suma de ₡" + payment.getTotal());
+            } else {
+                notifyObservers("+Error al realizar el pago");
+            }
+        }
     }
 
-    public void loadPayments (int studentID) {
+    public void loadPayments() {
         Result result = repository.getPendingPayments(studentID);
         ArrayList<Payment> payments = new ArrayList<>();
         if (result.getResultCodes() == 0) {
