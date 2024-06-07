@@ -5,15 +5,16 @@ import java.util.Iterator;
 
 import Database.PaymentRepository;
 import Database.Result;
-import Observers.Observer;
-import Observers.Subject;
+import Observers.MessageObserver;
+import Observers.MessageSubject;
+import Observers.QuiteObserver;
 import Payments.Payment;
 import Payments.PaymentList;
 
-public class PaymentController implements Observer, Subject {
+public class PaymentController implements MessageObserver, MessageSubject, QuiteObserver {
     
     private static PaymentController instance;
-    private ArrayList<Observer> observers;
+    private ArrayList<MessageObserver> observers;
     private PaymentRepository repository;
 
     private PaymentList paymentList;
@@ -37,16 +38,22 @@ public class PaymentController implements Observer, Subject {
     }
 
     @Override
-    public void registerObserver(Observer observer) {
+    public void registerObserver(MessageObserver observer) {
         observers.add(observer);
     }
 
     @Override
     public void notifyObservers(String message) {
-        for (Iterator<Observer> iterator = observers.iterator(); iterator.hasNext(); ){
-            Observer observer = iterator.next();
+        for (Iterator<MessageObserver> iterator = observers.iterator(); iterator.hasNext(); ){
+            MessageObserver observer = iterator.next();
             observer.update(message);
         }
+    }
+
+    @Override
+    public void update() {
+        ArrayList<Payment> selectedPayments = this.paymentList.getSelectedPayments();
+        System.out.println(selectedPayments.size());
     }
 
     public void loadPayments (int studentID) {

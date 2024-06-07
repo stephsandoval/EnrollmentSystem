@@ -1,6 +1,6 @@
 package Observers;
 
-public interface Observer {
+public interface MessageObserver {
     
     void update(String message);
 }

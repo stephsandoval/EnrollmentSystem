@@ -3,8 +3,8 @@ package Enrollment;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Observers.Observer;
-import Observers.Subject;
+import Observers.MessageObserver;
+import Observers.MessageSubject;
 import javafx.geometry.Insets;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.CheckBox;
@@ -16,10 +16,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class CourseList extends VBox implements Subject {
+public class CourseList extends VBox implements MessageSubject {
     
     private CourseSelectionList coursesSelected;
-    private ArrayList<Observer> observers;
+    private ArrayList<MessageObserver> observers;
     private ArrayList<Course> courses;
     private Accordion courseList;
     private HBox header;
@@ -27,21 +27,21 @@ public class CourseList extends VBox implements Subject {
     public CourseList(ArrayList<Course> courses) {
         this.courses = courses;
         coursesSelected = new CourseSelectionList();
-        observers = new ArrayList<Observer>();
+        observers = new ArrayList<MessageObserver>();
         setHeader();
         setAccordion();
         this.getChildren().addAll(header, courseList);
     }
 
     @Override
-    public void registerObserver(Observer observer) {
+    public void registerObserver(MessageObserver observer) {
         observers.add(observer);
     }
 
     @Override
     public void notifyObservers(String message) {
-        for (Iterator<Observer> iterator = observers.iterator(); iterator.hasNext(); ){
-            Observer observer = iterator.next();
+        for (Iterator<MessageObserver> iterator = observers.iterator(); iterator.hasNext(); ){
+            MessageObserver observer = iterator.next();
             observer.update(message);
         }
     }

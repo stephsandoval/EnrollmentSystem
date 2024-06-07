@@ -5,13 +5,13 @@ import java.util.ResourceBundle;
 
 import Controllers.MatriculaController;
 import Notifications.Status;
-import Observers.Observer;
+import Observers.MessageObserver;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public class MatriculaScreen extends GeneralScreen implements Initializable, Observer {
+public class MatriculaScreen extends GeneralScreen implements Initializable, MessageObserver {
 
     @FXML
     private AnchorPane anchorPane;

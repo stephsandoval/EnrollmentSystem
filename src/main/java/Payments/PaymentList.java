@@ -1,10 +1,11 @@
 package Payments;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
-import Observers.Observer;
-import Observers.Subject;
+import Observers.MessageObserver;
+import Observers.MessageSubject;
 import javafx.geometry.Insets;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -14,32 +15,45 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class PaymentList extends VBox implements Subject {
+public class PaymentList extends VBox implements MessageSubject {
 
-    private ArrayList<Payment> payments;
-    private ArrayList<Observer> observers;
+    private HashMap<Payment, Boolean> payments;
+    private ArrayList<MessageObserver> observers;
     private GridPane paymentsGrid;
     private HBox header;
 
     public PaymentList(ArrayList<Payment> payments) {
-        this.payments = payments;
         this.observers = new ArrayList<>();
+        this.payments = new HashMap<>();
+        for (Payment payment : payments){
+            this.payments.put(payment, false);
+        }
         setHeader();
         createPaymentList();
         this.getChildren().addAll(header, paymentsGrid);
     }
 
     @Override
-    public void registerObserver(Observer observer) {
+    public void registerObserver(MessageObserver observer) {
         observers.add(observer);
     }
 
     @Override
     public void notifyObservers(String message) {
-        for (Iterator<Observer> iterator = observers.iterator(); iterator.hasNext(); ){
-            Observer observer = iterator.next();
+        for (Iterator<MessageObserver> iterator = observers.iterator(); iterator.hasNext(); ){
+            MessageObserver observer = iterator.next();
             observer.update(message);
         }
+    }
+
+    public ArrayList<Payment> getSelectedPayments() {
+        ArrayList<Payment> selectedPayments = new ArrayList<>();
+        for (Payment payment : payments.keySet()){
+            if (payments.get(payment)){
+                selectedPayments.add(payment);
+            }
+        }
+        return selectedPayments;
     }
 
     private void setHeader() {
@@ -82,14 +96,16 @@ public class PaymentList extends VBox implements Subject {
         paymentsGrid.getColumnConstraints().addAll(selection, convention, description, period, amount);
 
         int rowIndex = 0;
-        for (Payment payment : payments) {
+        for (Payment payment : payments.keySet()) {
             CheckBox checkBox = new CheckBox();
             checkBox.setOnAction(event -> {
                 String message = "";
                 if (checkBox.isSelected()) {
                     message = String.valueOf(payment.getTotal());
+                    payments.put(payment, true);
                 } else {
                     message = "-" + payment.getTotal();
+                    payments.put(payment, false);
                 }
                 notifyObservers(message);
             });

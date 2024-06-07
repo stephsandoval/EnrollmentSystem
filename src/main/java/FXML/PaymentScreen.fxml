@@ -35,7 +35,7 @@
           <AnchorPane fx:id="anchorPane" minHeight="0.0" minWidth="0.0" prefHeight="260.0" prefWidth="639.0" />
         </content>
       </ScrollPane>
-      <Button fx:id="paymentButton" layoutX="773.0" layoutY="462.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="PAGAR" />
+      <Button fx:id="paymentButton" layoutX="773.0" layoutY="462.0" mnemonicParsing="false" onAction="#notifyObservers" prefHeight="25.0" prefWidth="113.0" text="PAGAR" />
       <Label layoutX="746.0" layoutY="374.0" text="Total: ₡">
          <font>
             <Font size="14.0" />

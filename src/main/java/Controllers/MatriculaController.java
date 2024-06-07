@@ -8,21 +8,21 @@ import Database.Result;
 import Enrollment.Course;
 import Enrollment.CourseList;
 import Enrollment.CourseSelectionList;
-import Observers.Observer;
-import Observers.Subject;
+import Observers.MessageObserver;
+import Observers.MessageSubject;
 
-public class MatriculaController implements Observer, Subject {
+public class MatriculaController implements MessageObserver, MessageSubject {
  
     private static MatriculaController instance;
     private MatriculaRepository repository;
-    private ArrayList<Observer> observers;
+    private ArrayList<MessageObserver> observers;
 
     private CourseList courseList;
     private int maxGroups = 0;
 
     private MatriculaController(int studentID) {
         repository = MatriculaRepository.getInstance(studentID);
-        observers = new ArrayList<Observer>();
+        observers = new ArrayList<MessageObserver>();
         loadCourses(studentID);
     }
 
@@ -39,14 +39,14 @@ public class MatriculaController implements Observer, Subject {
     }
 
     @Override
-    public void registerObserver(Observer observer) {
+    public void registerObserver(MessageObserver observer) {
         observers.add(observer);
     }
 
     @Override
     public void notifyObservers(String message) {
-        for (Iterator<Observer> iterator = observers.iterator(); iterator.hasNext(); ){
-            Observer observer = iterator.next();
+        for (Iterator<MessageObserver> iterator = observers.iterator(); iterator.hasNext(); ){
+            MessageObserver observer = iterator.next();
             observer.update(message);
         }
     }
