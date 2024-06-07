@@ -1,4 +1,4 @@
-CREATE PROCEDURE dbo.updateSelectedEnrollmentCourse (
+CREATE PROCEDURE dbo.updateSelectedInclusionCourse (
     @inStudentID INT,
     @inCourseSelection dbo.CourseArray READONLY,
     @outResultCode INT OUTPUT
@@ -32,19 +32,19 @@ BEGIN
         SELECT SC.CourseID
             , SC.GroupNumber
             , SC.Selected
-        FROM dbo.SelectedEnrollmentCourse SC
+        FROM dbo.SelectedInclusionCourse SC
         WHERE SC.StudentID = @inStudentID;
 
         UPDATE SC
         SET SC.GroupNumber = CS.GroupNumber, SC.Selected = CS.Selected
-        FROM dbo.SelectedEnrollmentCourse SC
+        FROM dbo.SelectedInclusionCourse SC
         INNER JOIN @inCourseSelection CS ON SC.CourseID = CS.CourseID
         WHERE SC.StudentID = @inStudentID;
 
-        INSERT INTO dbo.SelectedEnrollmentCourse (StudentID, CourseID, GroupNumber, Selected)
+        INSERT INTO dbo.SelectedInclusionCourse (StudentID, CourseID, GroupNumber, Selected)
         SELECT @inStudentID, CS.CourseID, CS.GroupNumber, 1
         FROM @inCourseSelection CS
-        LEFT JOIN dbo.SelectedEnrollmentCourse SC ON SC.CourseID = CS.CourseID AND SC.StudentID = @inStudentID
+        LEFT JOIN dbo.SelectedInclusionCourse SC ON SC.CourseID = CS.CourseID AND SC.StudentID = @inStudentID
         WHERE SC.CourseID IS NULL;
 
     END TRY

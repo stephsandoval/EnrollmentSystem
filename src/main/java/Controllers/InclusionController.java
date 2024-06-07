@@ -6,6 +6,7 @@ import Database.InclusionRepository;
 import Database.Result;
 import Enrollment.Course;
 import Enrollment.CourseList;
+import Enrollment.CourseSelectionList;
 
 public class InclusionController {
     
@@ -15,13 +16,13 @@ public class InclusionController {
     private CourseList courseList;
     private int maxGroups = 0;
 
-    private InclusionController () {
-        repository = InclusionRepository.getInstance();
+    private InclusionController (int studentID) {
+        repository = InclusionRepository.getInstance(studentID);
     }
 
     public static synchronized InclusionController getInstance(int studentID) {
         if (instance == null) {
-            instance = new InclusionController();
+            instance = new InclusionController(studentID);
         }
         return instance;
     }
@@ -48,5 +49,12 @@ public class InclusionController {
     public double getIdealHeight() {
         int amountElements = maxGroups + courseList.getSize();
         return amountElements * 30;
+    }
+
+    public CourseSelectionList getCourseSelection() {
+        if (this.courseList == null) {
+            return new CourseSelectionList();
+        }
+        return this.courseList.getCourseSelection();
     }
 }

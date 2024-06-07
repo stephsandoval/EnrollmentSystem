@@ -1,9 +1,14 @@
 package Database;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+
+import com.microsoft.sqlserver.jdbc.SQLServerDataTable;
 
 import Enrollment.Course;
 import Enrollment.Group;
@@ -11,19 +16,27 @@ import Enrollment.Group;
 public class InclusionRepository extends Repository {
     
     private static InclusionRepository instance;
+    private Result inclusionCourses;
+    private int studentID;
 
-    private InclusionRepository() {
+    private InclusionRepository(int studentID) {
         super();
+        this.studentID = studentID;
+        inclusionCourses = loadInclusionCourses();
     }
 
-    public static synchronized InclusionRepository getInstance() {
+    public static synchronized InclusionRepository getInstance(int studentID) {
         if (instance == null) {
-            instance = new InclusionRepository();
+            instance = new InclusionRepository(studentID);
         }
         return instance;
     }
 
     public Result getInclusionCourses (int studentID) {
+        return this.inclusionCourses;
+    }
+
+    private Result loadInclusionCourses() {
         ResultSet resultSet;
         Result result = new Result(); 
 
@@ -92,5 +105,34 @@ public class InclusionRepository extends Repository {
             closeResources();
         }
         return result;
+    }
+
+    public void updateCourseSelection (ArrayList<Object[]> coursesSelected) {
+
+        try (Connection connection = DriverManager.getConnection(connectionURL)) {
+            // Create a SQLServerDataTable to represent the TVP
+            SQLServerDataTable courseArray = new SQLServerDataTable();
+            courseArray.addColumnMetadata("CourseID", java.sql.Types.VARCHAR);
+            courseArray.addColumnMetadata("GroupNumber", java.sql.Types.INTEGER);
+            courseArray.addColumnMetadata("Selected", Types.BIT);
+
+            for (Object[] row : coursesSelected) {
+                courseArray.addRow(row);
+            }
+
+            String sql = "{call dbo.updateSelectedInclusionCourse(?, ?, ?)}";
+            try (CallableStatement stmt = connection.prepareCall(sql)) {
+                stmt.setInt(1, studentID);
+                stmt.setObject(2, courseArray);
+                stmt.registerOutParameter(3, java.sql.Types.INTEGER);
+
+                stmt.execute();
+
+                int resultCode = stmt.getInt(3);
+                System.out.println("Result Code: " + resultCode);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -176,9 +176,10 @@ CREATE TABLE SelectedInclusionCourse (
 --DROP TABLE CareerPlan;
 --DROP TABLE Career;
 
-CREATE TYPE dbo.CourseArray AS TABLE (
-      CourseID VARCHAR(8)
-	, GroupNumber INT
-);
+--CREATE TYPE dbo.CourseArray AS TABLE (
+--      CourseID VARCHAR(8)
+--	, GroupNumber INT
+--	, Selected BIT
+--);
 
-DROP TYPE dbo.CourseArray
+--DROP TYPE dbo.CourseArray

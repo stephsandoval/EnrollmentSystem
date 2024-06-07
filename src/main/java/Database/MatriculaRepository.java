@@ -22,7 +22,7 @@ public class MatriculaRepository extends Repository {
     private MatriculaRepository (int studentID) {
         super();
         this.studentID = studentID;
-        enrollmentCourses = loadEnrollmentCourses(studentID);
+        enrollmentCourses = loadEnrollmentCourses();
     }
 
     public static synchronized MatriculaRepository getInstance(int studentID) {
@@ -36,7 +36,7 @@ public class MatriculaRepository extends Repository {
         return this.enrollmentCourses;
     }
 
-    private Result loadEnrollmentCourses (int studentID) {
+    private Result loadEnrollmentCourses() {
         ResultSet resultSet;
         Result result = new Result(); 
 
@@ -114,12 +114,13 @@ public class MatriculaRepository extends Repository {
             SQLServerDataTable courseArray = new SQLServerDataTable();
             courseArray.addColumnMetadata("CourseID", java.sql.Types.VARCHAR);
             courseArray.addColumnMetadata("GroupNumber", java.sql.Types.INTEGER);
+            courseArray.addColumnMetadata("Selected", java.sql.Types.BIT);
 
             for (Object[] row : coursesSelected) {
                 courseArray.addRow(row);
             }
 
-            String sql = "{call dbo.updateSelectedCourse(?, ?, ?)}";
+            String sql = "{call dbo.updateSelectedEnrollmentCourse(?, ?, ?)}";
             try (CallableStatement stmt = connection.prepareCall(sql)) {
                 stmt.setInt(1, studentID);
                 stmt.setObject(2, courseArray);
