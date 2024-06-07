@@ -41,6 +41,12 @@ public class PaymentController implements MessageObserver, MessageSubject, Quite
 
     @Override
     public void registerObserver(MessageObserver observer) {
+        for (MessageObserver existingObserver : observers) {
+            if (existingObserver.getClass() == observer.getClass()) {
+                observers.remove(observers.indexOf(existingObserver));
+                break;
+            }
+        }
         observers.add(observer);
     }
 

@@ -27,6 +27,7 @@ public class MatriculaScreen extends GeneralScreen implements Initializable, Mes
 
     @Override
     public void update(String message) {
+        System.out.println("in notification");
         showNotification(Status.ERROR, message);
     }
     

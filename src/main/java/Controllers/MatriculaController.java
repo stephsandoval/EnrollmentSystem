@@ -35,11 +35,18 @@ public class MatriculaController implements MessageObserver, MessageSubject {
 
     @Override
     public void update(String message) {
+        System.out.println("controller observers " + observers.size());
         notifyObservers(message);
     }
 
     @Override
     public void registerObserver(MessageObserver observer) {
+        for (MessageObserver existingObserver : observers) {
+            if (existingObserver.getClass() == observer.getClass()) {
+                observers.remove(observers.indexOf(existingObserver));
+                break;
+            }
+        }
         observers.add(observer);
     }
 

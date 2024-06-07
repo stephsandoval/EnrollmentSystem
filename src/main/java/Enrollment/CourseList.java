@@ -158,6 +158,8 @@ public class CourseList extends VBox implements MessageSubject {
             for (CourseSelection courseSelected : coursesSelected.getSelectedCourses()) {
                 if (courseSelected.clashesCourse(selection)) {
                     newCheckbox.setSelected(false);
+                    System.out.println("observers " + observers.size());
+                    System.out.println("clashing course " + selection.getCourseID());
                     notifyObservers("El curso seleccionado choca con " + courseSelected.getCourseID());
                     valid = false;
                     break;
@@ -173,6 +175,11 @@ public class CourseList extends VBox implements MessageSubject {
                 }
             }
         }
+        
+        for (CourseSelection c : coursesSelected.getSelectedCourses()){
+            System.out.println(c.getCourseID() + " " + c.isSelected());
+        }
+        System.out.println();
     }
 
     private HBox createHeaderPane (Course course) {

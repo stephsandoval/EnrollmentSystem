@@ -6,5 +6,4 @@ EXEC dbo.getInclusionCourses 2023395946, @out OUTPUT
 EXEC dbo.getInclusionGroupOptions 2023395946, 'IC4700', @out OUTPUT
 EXEC dbo.getPendingPayments 2023395946, @out OUTPUT
 
---EXEC dbo.updatePayment 2023395946, @
 SELECT * FROM Payment;
