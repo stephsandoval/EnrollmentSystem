@@ -8,13 +8,18 @@ import Notifications.Status;
 import Observers.MessageObserver;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class MatriculaScreen extends GeneralScreen implements Initializable, MessageObserver {
 
     @FXML
-    private AnchorPane anchorPane;
+    private Pane anchorPane;
+    @FXML
+    private ImageView background;
 
     private MatriculaController controller;
 
@@ -23,6 +28,7 @@ public class MatriculaScreen extends GeneralScreen implements Initializable, Mes
         controller = MatriculaController.getInstance(studentID);
         controller.registerObserver(this);
         setCourseList();
+        setBackground();
     }
 
     @Override
@@ -39,5 +45,10 @@ public class MatriculaScreen extends GeneralScreen implements Initializable, Mes
         AnchorPane.setBottomAnchor(courseList, 10.0);
         AnchorPane.setLeftAnchor(courseList, 10.0);
         AnchorPane.setRightAnchor(courseList, 10.0);
+    }
+
+    private void setBackground (){
+        Image image = new Image("file:src/main/java/Images/background.png");
+        background.setImage(image);
     }
 }

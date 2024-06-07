@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 import Controllers.InclusionController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -13,6 +15,8 @@ public class InclusionScreen extends GeneralScreen implements Initializable {
     
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private ImageView background;
 
     private InclusionController controller;
 
@@ -21,6 +25,7 @@ public class InclusionScreen extends GeneralScreen implements Initializable {
         controller = InclusionController.getInstance(studentID);
         controller.loadCourses(studentID);
         setCourseList();
+        setBackground();
     }
 
     private void setCourseList() {
@@ -31,5 +36,10 @@ public class InclusionScreen extends GeneralScreen implements Initializable {
         AnchorPane.setBottomAnchor(courseList, 10.0);
         AnchorPane.setLeftAnchor(courseList, 10.0);
         AnchorPane.setRightAnchor(courseList, 10.0);
+    }
+
+    private void setBackground (){
+        Image image = new Image("file:src/main/java/Images/background.png");
+        background.setImage(image);
     }
 }

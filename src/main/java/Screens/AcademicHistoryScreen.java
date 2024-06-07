@@ -8,12 +8,16 @@ import Controllers.AcademicHistoryController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public class AcademicHistoryScreen extends GeneralScreen implements Initializable {
 
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private ImageView background;
 
     private AcademicHistoryController controller;
 
@@ -21,6 +25,7 @@ public class AcademicHistoryScreen extends GeneralScreen implements Initializabl
     public void initialize(URL location, ResourceBundle resources) {
         controller = AcademicHistoryController.getInstance(studentID);
         setRecordList();
+        setBackground();
     }
 
     private void setRecordList() {
@@ -32,4 +37,8 @@ public class AcademicHistoryScreen extends GeneralScreen implements Initializabl
         anchorPane.getChildren().add(recordList);
     }
     
+    private void setBackground (){
+        Image image = new Image("file:src/main/java/Images/background.png");
+        background.setImage(image);
+    }
 }

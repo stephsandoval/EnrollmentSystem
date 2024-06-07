@@ -13,6 +13,8 @@ import Observers.QuiteSubject;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -22,6 +24,8 @@ public class PaymentScreen extends GeneralScreen implements Initializable, Messa
     private AnchorPane anchorPane;
     @FXML
     private Label totalAmount;
+    @FXML
+    private ImageView background;
 
     private ArrayList<QuiteObserver> observers;
     private PaymentController controller;
@@ -34,6 +38,7 @@ public class PaymentScreen extends GeneralScreen implements Initializable, Messa
         this.observers = new ArrayList<>();
         setPaymentList();
         registerObserver();
+        setBackground();
     }
 
     @Override
@@ -77,5 +82,10 @@ public class PaymentScreen extends GeneralScreen implements Initializable, Messa
         AnchorPane.setBottomAnchor(courseList, 10.0);
         AnchorPane.setLeftAnchor(courseList, 10.0);
         AnchorPane.setRightAnchor(courseList, 10.0);
+    }
+
+    private void setBackground (){
+        Image image = new Image("file:src/main/java/Images/background.png");
+        background.setImage(image);
     }
 }
