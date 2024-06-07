@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import Notifications.Notification;
+import Notifications.NotificationFactory;
+import Notifications.Status;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +21,9 @@ public class GeneralScreen {
     private final String matriculaPath = "src/main/java/FXML/MatriculaScreen.fxml";
     private final String academicHistoryPath = "src/main/java/FXML/AcademicHistoryScreen.fxml";
     private final String inclusionPath = "src/main/java/FXML/InclusionScreen.fxml";
-    
+    private final String paymentPath = "src/main/java/FXML/PaymentScreen.fxml";
+
+    private NotificationFactory factory = NotificationFactory.getInstance();
     public static final int studentID = 2023395946;
 
     private String path;
@@ -53,5 +58,15 @@ public class GeneralScreen {
     public void loadInclusionScreen (ActionEvent event) throws IOException {
         path = inclusionPath;
         loadScreen(event);
+    }
+
+    public void loadPaymentScreen (ActionEvent event) throws IOException {
+        path = paymentPath;
+        loadScreen(event);
+    }
+
+    public void showNotification (Status status, String message){
+        Notification notification = factory.createNotification(status);
+        notification.notifyUser(message);
     }
 }

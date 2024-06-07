@@ -1,23 +1,28 @@
 package Controllers;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import Database.MatriculaRepository;
 import Database.Result;
 import Enrollment.Course;
 import Enrollment.CourseList;
 import Enrollment.CourseSelectionList;
+import Observers.Observer;
+import Observers.Subject;
 
-public class MatriculaController {
+public class MatriculaController implements Observer, Subject {
  
     private static MatriculaController instance;
     private MatriculaRepository repository;
+    private ArrayList<Observer> observers;
 
     private CourseList courseList;
     private int maxGroups = 0;
 
     private MatriculaController(int studentID) {
         repository = MatriculaRepository.getInstance(studentID);
+        observers = new ArrayList<Observer>();
         loadCourses(studentID);
     }
 
@@ -26,6 +31,24 @@ public class MatriculaController {
             instance = new MatriculaController(studentID);
         }
         return instance;
+    }
+
+    @Override
+    public void update(String message) {
+        notifyObservers(message);
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyObservers(String message) {
+        for (Iterator<Observer> iterator = observers.iterator(); iterator.hasNext(); ){
+            Observer observer = iterator.next();
+            observer.update(message);
+        }
     }
 
     private void loadCourses (int studentID) {
@@ -41,6 +64,7 @@ public class MatriculaController {
             }
         }
         this.courseList = new CourseList(courses);
+        this.courseList.registerObserver(this);
     }
 
     public CourseList getCourseList() {

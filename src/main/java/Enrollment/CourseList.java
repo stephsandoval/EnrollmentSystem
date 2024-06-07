@@ -1,7 +1,10 @@
 package Enrollment;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import Observers.Observer;
+import Observers.Subject;
 import javafx.geometry.Insets;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.CheckBox;
@@ -13,9 +16,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class CourseList extends VBox {
+public class CourseList extends VBox implements Subject {
     
     private CourseSelectionList coursesSelected;
+    private ArrayList<Observer> observers;
     private ArrayList<Course> courses;
     private Accordion courseList;
     private HBox header;
@@ -23,9 +27,23 @@ public class CourseList extends VBox {
     public CourseList(ArrayList<Course> courses) {
         this.courses = courses;
         coursesSelected = new CourseSelectionList();
+        observers = new ArrayList<Observer>();
         setHeader();
         setAccordion();
         this.getChildren().addAll(header, courseList);
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyObservers(String message) {
+        for (Iterator<Observer> iterator = observers.iterator(); iterator.hasNext(); ){
+            Observer observer = iterator.next();
+            observer.update(message);
+        }
     }
 
     public int getSize() {
@@ -112,34 +130,7 @@ public class CourseList extends VBox {
             }
     
             newCheckbox.setOnAction(event -> {
-                CourseSelection selection = new CourseSelection(course.getCourseCode(), courseGroup.getGroupNumber(), courseGroup.getSchedule(), true);
-    
-                if (!newCheckbox.isSelected()) {
-                    for (CourseSelection courseSelected : coursesSelected.getSelectedCourses()) {
-                        if (courseSelected.getCourseID().equals(course.getCourseCode()) && courseSelected.getGroupNumber() == courseGroup.getGroupNumber()){
-                            courseSelected.setSelected(false);
-                        }
-                    }
-                } else {
-                    boolean valid = true;
-                    for (CourseSelection courseSelected : coursesSelected.getSelectedCourses()) {
-                        if (courseSelected.clashesCourse(selection)) {
-                            newCheckbox.setSelected(false);
-                            System.out.println("The course clashes with " + courseSelected.getCourseID());
-                            valid = false;
-                            break;
-                        }
-                    }
-                    if (valid) {
-                        coursesSelected.addCourseSelection(selection);
-                        // Ensure only one checkbox is selected
-                        for (CheckBox checkbox : checkBoxes) {
-                            if (checkbox != newCheckbox) {
-                                checkbox.setSelected(false);
-                            }
-                        }
-                    }
-                }
+                setCheckBoxAction(course, courseGroup, newCheckbox, checkBoxes);
             });
     
             checkBoxes.add(newCheckbox);
@@ -151,7 +142,38 @@ public class CourseList extends VBox {
         titledPane.setGraphic(createHeaderPane(course));
         titledPane.setContent(gridPane);
         return titledPane;
-    }    
+    }
+    
+    private void setCheckBoxAction (Course course, Group courseGroup, CheckBox newCheckbox, ArrayList<CheckBox> checkBoxes) {
+        CourseSelection selection = new CourseSelection(course.getCourseCode(), courseGroup.getGroupNumber(), courseGroup.getSchedule(), true);
+    
+        if (!newCheckbox.isSelected()) {
+            for (CourseSelection courseSelected : coursesSelected.getSelectedCourses()) {
+                if (courseSelected.getCourseID().equals(course.getCourseCode()) && courseSelected.getGroupNumber() == courseGroup.getGroupNumber()){
+                    courseSelected.setSelected(false);
+                }
+            }
+        } else {
+            boolean valid = true;
+            for (CourseSelection courseSelected : coursesSelected.getSelectedCourses()) {
+                if (courseSelected.clashesCourse(selection)) {
+                    newCheckbox.setSelected(false);
+                    notifyObservers("El curso seleccionado choca con " + courseSelected.getCourseID());
+                    valid = false;
+                    break;
+                }
+            }
+            if (valid) {
+                coursesSelected.addCourseSelection(selection);
+                // Ensure only one checkbox is selected
+                for (CheckBox checkbox : checkBoxes) {
+                    if (checkbox != newCheckbox) {
+                        checkbox.setSelected(false);
+                    }
+                }
+            }
+        }
+    }
 
     private HBox createHeaderPane (Course course) {
         HBox headerPane = new HBox();
