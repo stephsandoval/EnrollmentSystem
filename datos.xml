@@ -240,4 +240,9 @@
         <History Student = "2023395946" Course = "IC5821" Group = "1" Period = "1S-2024" Grade = "90" Condition = "Cursado" />
         <History Student = "2023395946" Course = "MA2404" Group = "2" Period = "1S-2024" Grade = "85" Condition = "Cursado" />
       </AcademicHistory>
+      <Payments>
+        <Payment Student = "2023395946" Convention = "Servicios estudiantiles" Description = "Servicio de autobus" Period = "1S-2024" Amount = "3750" Paid = "False" />
+        <Payment Student = "2023395946" Convention = "Servicios estudiantiles" Description = "Derechos de estudio" Period = "1S-2024" Amount = "7850" Paid = "True" />
+        <Payment Student = "2023395946" Convention = "Servicios estudiantiles" Description = "Servicios bibliotecarios" Period = "1S-2024" Amount = "300" Paid = "False" />
+      </Payments>
     </Data>

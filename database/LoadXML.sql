@@ -191,6 +191,19 @@ BEGIN TRY
 		END AS Aprobado
 	FROM @xmlData.nodes('/Data/AcademicHistory/History') AS AH(history);
 
+	INSERT INTO Payment (StudentID, Convention, PaymentDescription, PaymentPeriod, Total, IsPaid)
+	SELECT 
+		P.payment.value('@Student', 'INT') AS StudentID,
+		P.payment.value('@Convention', 'VARCHAR(64)') AS Convention,
+		P.payment.value('@Description', 'VARCHAR(128)') AS PaymentDescription,
+		P.payment.value('@Period', 'VARCHAR(8)') AS PaymentPeriod,
+		P.payment.value('@Amount', 'INT') AS Total,
+		CASE
+			WHEN P.payment.value('@Paid', 'VARCHAR(16)') = 'True' THEN 1
+			ELSE 0
+		END AS IsPaid
+	FROM @xmlData.nodes('/Data/Payments/Payment') AS P(payment);
+
 	EXEC sp_xml_removedocument @value
 
     COMMIT TRANSACTION;
@@ -227,4 +240,5 @@ SELECT * FROM CoursePerCareerPlan;
 SELECT * FROM EnrollmentCourse;
 SELECT * FROM AcademicHistory;
 SELECT * FROM InclusionCourse;
+SELECT * FROM Payment;
 SELECT * FROM DatabaseError;

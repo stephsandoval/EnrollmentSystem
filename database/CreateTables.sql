@@ -121,6 +121,9 @@ CREATE TABLE AcademicHistory (
 CREATE TABLE Payment (
     PaymentID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
     StudentID INT NOT NULL,
+	Convention VARCHAR(64) NOT NULL,
+	PaymentDescription VARCHAR(128) NOT NULL,
+	PaymentPeriod VARCHAR(8) NOT NULL,
     Total MONEY NOT NULL,
     IsPaid BIT NOT NULL,
     FOREIGN KEY (StudentID) REFERENCES Student(StudentID)
